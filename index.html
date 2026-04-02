@@ -6,79 +6,104 @@
     <title>YOUSSEF ELADAWY | PRO TRAINING</title>
     <style>
         :root { --tyson-red: #ff3131; --iron-gold: #ffde59; --dark-bg: #0a0a0a; --card-bg: #1a1a1a; --whatsapp-green: #25d366; }
-        body { background-color: var(--dark-bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        body { background-color: var(--dark-bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
         .container { max-width: 500px; margin: auto; padding: 15px; }
         
         /* Welcome Popup */
-        #name-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-        .name-box { background: var(--card-bg); padding: 30px; border-radius: 20px; border: 2px solid var(--iron-gold); text-align: center; width: 85%; }
-        .name-input { width: 90%; padding: 12px; border-radius: 10px; border: 1px solid var(--iron-gold); background: #000; color: #fff; text-align: center; font-size: 1.1rem; margin-bottom: 15px; }
+        #name-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .name-box { background: var(--card-bg); padding: 30px; border-radius: 25px; border: 2px solid var(--iron-gold); text-align: center; width: 85%; box-shadow: 0 0 20px rgba(255, 222, 89, 0.2); }
+        .name-input { width: 90%; padding: 15px; border-radius: 12px; border: 1px solid var(--iron-gold); background: #000; color: #fff; text-align: center; font-size: 1.2rem; margin-bottom: 20px; outline: none; }
         
-        header { background: linear-gradient(180deg, #000, var(--tyson-red)); padding: 40px 20px; border-radius: 0 0 35px 35px; text-align: center; border-bottom: 4px solid var(--iron-gold); }
-        .timer-zone { background: var(--card-bg); padding: 20px; border-radius: 20px; margin: 20px 0; text-align: center; border: 1px solid var(--iron-gold); }
-        #timer-val { font-size: 3rem; font-weight: 900; color: var(--iron-gold); display: block; }
-        .btn-start { background: var(--tyson-red); color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1rem; }
+        header { background: linear-gradient(180deg, #000, var(--tyson-red)); padding: 45px 20px; border-radius: 0 0 40px 40px; text-align: center; border-bottom: 5px solid var(--iron-gold); }
+        h1 { margin: 0; font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        
+        .timer-zone { background: var(--card-bg); padding: 20px; border-radius: 20px; margin: 25px 0; text-align: center; border: 1px solid var(--iron-gold); position: relative; }
+        #timer-val { font-size: 3.5rem; font-weight: 900; color: var(--iron-gold); display: block; font-family: monospace; }
+        .btn-start { background: var(--tyson-red); color: white; border: none; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.2rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 49, 49, 0.3); }
+        .btn-start:active { transform: scale(0.95); }
 
-        .category-title { color: var(--iron-gold); font-size: 1.4rem; margin: 30px 0 15px; border-right: 4px solid var(--tyson-red); padding-right: 10px; }
-        .exercise-card { background: var(--card-bg); padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #333; }
+        .category-title { color: var(--iron-gold); font-size: 1.5rem; margin: 35px 0 15px; border-right: 5px solid var(--tyson-red); padding-right: 12px; display: flex; align-items: center; gap: 10px; }
+        .exercise-card { background: var(--card-bg); padding: 18px; border-radius: 20px; margin-bottom: 25px; border: 1px solid #333; position: relative; transition: 0.3s; }
+        .exercise-card:hover { border-color: var(--tyson-red); }
         .ex-header { display: flex; justify-content: space-between; align-items: center; }
-        .ex-name { font-size: 1.1rem; font-weight: bold; color: #fff; }
-        .ex-sets { color: var(--tyson-red); font-size: 0.9rem; font-weight: bold; }
-        .btn-video { background: #333; color: var(--iron-gold); border: 1px solid var(--iron-gold); padding: 6px 15px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; margin-top: 10px; display: inline-block; text-decoration: none; transition: 0.3s; }
+        .ex-name { font-size: 1.15rem; font-weight: bold; color: #fff; display: block; }
+        .ex-sets { color: var(--tyson-red); font-size: 0.95rem; font-weight: bold; margin-top: 5px; display: block; }
+        .check-box { width: 25px; height: 25px; accent-color: var(--iron-gold); cursor: pointer; }
+        
+        .btn-video { background: #222; color: var(--iron-gold); border: 1px solid var(--iron-gold); padding: 8px 18px; border-radius: 10px; font-size: 0.9rem; cursor: pointer; margin-top: 15px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: bold; transition: 0.3s; }
         .btn-video:hover { background: var(--iron-gold); color: black; }
 
-        /* Whatsapp Section */
-        .whatsapp-box { background: #111; padding: 20px; border-radius: 15px; text-align: center; margin: 30px 0; border: 1px solid var(--whatsapp-green); }
-        .whatsapp-btn { background: var(--whatsapp-green); color: white; text-decoration: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; display: inline-block; margin-top: 10px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
-
-        .week-table { width: 100%; border-collapse: collapse; background: #111; border-radius: 15px; overflow: hidden; }
-        .week-table td { padding: 12px; border-bottom: 1px solid #222; text-align: center; }
+        /* الجدول الأسبوعي */
+        .week-table { width: 100%; border-collapse: collapse; background: #111; border-radius: 20px; overflow: hidden; margin: 20px 0; border: 1px solid #333; }
+        .week-table td { padding: 15px; border-bottom: 1px solid #222; text-align: center; font-size: 0.95rem; }
         .today { background: var(--iron-gold) !important; color: black !important; font-weight: 900; }
-        .footer { text-align: center; padding: 30px; color: #777; font-size: 0.85rem; border-top: 1px solid #222; margin-top: 20px; }
+
+        /* قسم التواصل واتساب */
+        .whatsapp-box { background: #111; padding: 25px; border-radius: 20px; text-align: center; margin: 40px 0; border: 1px solid var(--whatsapp-green); box-shadow: 0 0 15px rgba(37, 211, 102, 0.1); }
+        .whatsapp-btn { background: var(--whatsapp-green); color: white; text-decoration: none; padding: 14px 30px; border-radius: 50px; font-weight: bold; display: inline-flex; align-items: center; gap: 10px; margin-top: 15px; font-size: 1.1rem; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); } 70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        .footer { text-align: center; padding: 40px 20px; color: #888; font-size: 0.9rem; border-top: 1px solid #222; line-height: 1.6; }
     </style>
 </head>
 <body>
 
     <div id="name-overlay">
         <div class="name-box">
-            <h2 style="color:var(--iron-gold);">أهلاً بيك في عالم الأبطال!</h2>
-            <p>سجل اسمك عشان نبدأ الوحش اللي جواك:</p>
+            <h2 style="color:var(--iron-gold); margin-top:0;">أهلاً بيك يا بطل!</h2>
+            <p style="margin-bottom:20px; color:#ccc;">سجل اسمك عشان نبدأ التدريب باحترافية:</p>
             <input type="text" id="user-name-input" class="name-input" placeholder="اكتب اسمك هنا...">
-            <button class="btn-start" onclick="saveName()">دخول التدريب 🥊</button>
+            <button class="btn-start" onclick="saveName()">دخول الحلبة 🥊</button>
         </div>
     </div>
 
     <header>
         <h1 id="welcome-msg">يوسف العدوي</h1>
-        <p style="color:var(--iron-gold);">YOUSSEF ELADAWY FITNESS</p>
+        <p style="color:var(--iron-gold); font-weight:bold; letter-spacing:1px; margin-top:10px;">YOUSSEF ELADAWY FITNESS</p>
     </header>
 
     <div class="container">
+        
         <div class="timer-zone">
-            <small>وقت الراحة الذكي</small>
+            <small style="color:#aaa; text-transform:uppercase; letter-spacing:1px;">وقت الراحة بين المجاميع</small>
             <span id="timer-val">00:45</span>
             <button class="btn-start" onclick="runTimer()">ابدأ الراحة (45 ثانية) 🔔</button>
         </div>
 
-        <h2 class="category-title">🔥 روتين القوة</h2>
+        <h2 class="category-title">🥊 تمارين القوة والتحمل</h2>
+        
         <div class="exercise-card">
-            <div class="ex-header"><div><span class="ex-name">تمرين الضغط (Push-ups)</span><br><span class="ex-sets">10 مجموعات × 20-50 عدة</span></div><input type="checkbox" style="width:20px; height:20px;"></div>
-            <a href="https://www.youtube.com/watch?v=IODxDxX7oi4" target="_blank" class="btn-video">🎥 فيديو الشرح</a>
-        </div>
-        <div class="exercise-card">
-            <div class="ex-header"><div><span class="ex-name">تمرين المتوازي (Dips)</span><br><span class="ex-sets">5 مجموعات × 20 عدة</span></div><input type="checkbox" style="width:20px; height:20px;"></div>
-            <a href="https://www.youtube.com/watch?v=2z8JmcrW-As" target="_blank" class="btn-video">🎥 فيديو الشرح</a>
+            <div class="ex-header">
+                <div><span class="ex-name">تمرين الضغط (Push-ups)</span><span class="ex-sets">10 مجموعات × 20-50 عدة</span></div>
+                <input type="checkbox" class="check-box">
+            </div>
+            <a href="https://www.youtube.com/watch?v=IODxDxX7oi4" target="_blank" class="btn-video">🎥 شاهد شرح التمرين</a>
         </div>
 
-        <h2 class="category-title">⚔️ تمارين الحديد والرقبة</h2>
         <div class="exercise-card">
-            <div class="ex-header"><div><span class="ex-name">تمرين الرقبة (Neck Bridge)</span><br><span class="ex-sets">3 مجموعات × 1 دقيقة</span></div><input type="checkbox" style="width:20px; height:20px;"></div>
-            <a href="https://www.youtube.com/watch?v=uD9lUvE83rU" target="_blank" class="btn-video">🎥 فيديو الشرح</a>
+            <div class="ex-header">
+                <div><span class="ex-name">تمرين المتوازي (Dips)</span><span class="ex-sets">5 مجموعات × 20 عدة</span></div>
+                <input type="checkbox" class="check-box">
+            </div>
+            <a href="https://www.youtube.com/watch?v=2z8JmcrW-As" target="_blank" class="btn-video">🎥 شاهد شرح التمرين</a>
         </div>
+
+        <h2 class="category-title">⛓️ الرقبة والترابيس (تايسون)</h2>
+        
         <div class="exercise-card">
-            <div class="ex-header"><div><span class="ex-name">شراغز (Dumbbell Shrugs)</span><br><span class="ex-sets">4 مجموعات × 15 عدة</span></div><input type="checkbox" style="width:20px; height:20px;"></div>
-            <a href="https://www.youtube.com/watch?v=68tD2z7Lp0Y" target="_blank" class="btn-video">🎥 فيديو الشرح</a>
+            <div class="ex-header">
+                <div><span class="ex-name">تمرين الرقبة (Neck Bridge)</span><span class="ex-sets">3 مجموعات × 1 دقيقة تحمل</span></div>
+                <input type="checkbox" class="check-box">
+            </div>
+            <a href="https://www.youtube.com/watch?v=uD9lUvE83rU" target="_blank" class="btn-video">🎥 شاهد شرح التمرين</a>
+        </div>
+
+        <div class="exercise-card">
+            <div class="ex-header">
+                <div><span class="ex-name">شراغز بالأوزان (Dumbbell Shrugs)</span><span class="ex-sets">4 مجموعات × 15 عدة</span></div>
+                <input type="checkbox" class="check-box">
+            </div>
+            <a href="https://www.youtube.com/watch?v=68tD2z7Lp0Y" target="_blank" class="btn-video">🎥 شاهد شرح التمرين</a>
         </div>
 
         <h2 class="category-title">📅 الجدول الأسبوعي</h2>
@@ -93,35 +118,43 @@
         </table>
 
         <div class="whatsapp-box">
-            <p style="margin:0; font-weight:bold;">للاستفسار يمكنكم التواصل خلال:</p>
-            <a href="https://wa.me/201551853099" class="whatsapp-btn">💬 واتساب: 01551853099</a>
+            <p style="margin:0; font-weight:bold; font-size:1.1rem;">للاستفسار يمكنكم التواصل خلال:</p>
+            <a href="https://wa.me/201551853099" target="_blank" class="whatsapp-btn">💬 واتساب: 01551853099</a>
         </div>
 
         <div class="footer">
             تطوير يوسف أحمد العدوي © 2026<br>
-            <small>Don't count the days, make the days count.</small>
+            <small>"I'm a dreamer. I have to dream and reach for the stars." - Mike Tyson</small>
         </div>
     </div>
 
     <script>
+        // حفظ الاسم
         function saveName() {
             const name = document.getElementById('user-name-input').value;
-            if(name) {
+            if(name.trim() !== "") {
                 localStorage.setItem('coachName', name);
                 document.getElementById('name-overlay').style.display = 'none';
                 document.getElementById('welcome-msg').innerText = "يا هلا يا كوتش " + name;
-            } else { alert("اكتب اسمك الأول يا وحش! 🔥"); }
+            } else {
+                alert("اكتب اسمك الأول يا وحش! 🔥");
+            }
         }
+
+        // تشغيل عند التحميل
         window.onload = () => {
             const savedName = localStorage.getItem('coachName');
             if(savedName) {
                 document.getElementById('name-overlay').style.display = 'none';
                 document.getElementById('welcome-msg').innerText = "يا هلا يا كوتش " + savedName;
             }
+            
             const day = new Date().getDay();
             const row = document.getElementById('d' + day);
             if(row) row.classList.add('today');
         };
+
+        // التايمر
         let t;
         function runTimer() {
             clearInterval(t);
@@ -133,11 +166,18 @@
                 if (s <= 0) {
                     clearInterval(t);
                     const name = localStorage.getItem('coachName') || "بطل";
-                    const audio = new AudioContext();
-                    const osc = audio.createOscillator();
-                    osc.connect(audio.destination);
-                    osc.start();
-                    osc.stop(audio.currentTime + 0.5);
+                    
+                    // تنبيه صوتي
+                    try {
+                        const audio = new (window.AudioContext || window.webkitAudioContext)();
+                        const osc = audio.createOscillator();
+                        const gain = audio.createGain();
+                        osc.connect(gain);
+                        gain.connect(audio.destination);
+                        osc.start();
+                        osc.stop(audio.currentTime + 0.5);
+                    } catch(e) { console.log("Audio not supported"); }
+                    
                     alert("يللا يا كوتش " + name + " للتمرين اللي بعده! 🥊");
                     display.innerText = "00:45";
                 }
