@@ -3,235 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YOUSSEF ELADAWY | PRO TRAINING APPS</title>
+    <title>YOUSSEF ELADAWY | PRO APP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* نظام الألوان للتطبيقات الاحترافية */
-        :root { --deep-black: #000000; --card-dark: #111111; --pro-red: #ff0000; --pure-white: #ffffff; --fb-blue: #1877f2; --wa-green: #25d366; }
-        body { background-color: var(--deep-black); color: var(--pure-white); font-family: 'Segoe UI', 'Roboto', sans-serif; margin: 0; padding: 0; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-        .container { max-width: 500px; margin: auto; padding: 10px; padding-bottom: 30px; }
+        :root { --main-red: #e60000; --dark-gray: #121212; --light-gray: #1f1f1f; --gold: #ffd700; --pure-white: #ffffff; }
+        body { background-color: #000; color: var(--pure-white); font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; }
         
-        /* نافذة دخول التطبيق (Splash Screen) */
-        #name-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, var(--pro-red) 0%, var(--deep-black) 80%); display: flex; justify-content: center; align-items: center; z-index: 2000; transition: 0.5s; }
-        .name-box { background: rgba(10, 10, 10, 0.95); padding: 40px 20px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.1); text-align: center; width: 85%; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8); }
-        .name-box i { font-size: 4rem; color: var(--pure-white); margin-bottom: 15px; }
-        .app-input { width: 90%; padding: 15px; border-radius: 12px; border: 1px solid #333; background: #000; color: #fff; text-align: center; font-size: 1.1rem; margin-bottom: 20px; outline: none; transition: 0.3s; }
-        .app-input:focus { border-color: var(--pro-red); box-shadow: 0 0 10px rgba(255, 0, 0, 0.3); }
+        /* شاشة الدخول الاحترافية */
+        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; justify-content: center; align-items: center; z-index: 3000; transition: 0.8s ease-in-out; }
+        .login-card { background: var(--light-gray); padding: 40px 20px; border-radius: 35px; border: 2px solid var(--main-red); text-align: center; width: 85%; max-width: 400px; box-shadow: 0 0 30px rgba(230, 0, 0, 0.4); }
+        .login-card i { font-size: 5rem; color: var(--main-red); margin-bottom: 20px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .input-field { width: 90%; padding: 15px; border-radius: 15px; border: 1px solid #333; background: #000; color: #fff; text-align: center; font-size: 1.1rem; margin-bottom: 15px; outline: none; }
         
-        /* الهيدر المحترف (App Header) */
-        header { background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(20,20,20,0.8) 100%); padding: 60px 20px; text-align: center; border-bottom: 4px solid var(--pro-red); position: relative; }
-        header i { font-size: 4rem; color: var(--pro-red); margin-bottom: 15px; text-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
-        header h1 { margin: 0; font-size: 2.5rem; font-weight: 900; letter-spacing: 1px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-        
-        /* لوحة التحكم الموسيقى (تظهر للمستخدم) */
-        .music-control { background: var(--card-dark); border-radius: 50px; padding: 12px; display: flex; align-items: center; justify-content: space-between; margin: 15px 0; border: 1px solid #222; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .music-control p { margin: 0; font-size: 0.9rem; font-weight: bold; }
-        .music-control button { background: none; border: none; color: var(--pro-red); font-size: 1.5rem; cursor: pointer; transition: 0.3s; }
-        .music-control button:active { transform: scale(0.9); }
+        header { background: linear-gradient(180deg, #000, #330000); padding: 60px 20px; text-align: center; border-bottom: 4px solid var(--main-red); box-shadow: 0 5px 20px rgba(0,0,0,1); }
+        header h1 { font-size: 2.8rem; margin: 0; font-weight: 900; text-transform: uppercase; color: var(--pure-white); text-shadow: 2px 2px 10px rgba(255,0,0,0.8); }
+
+        /* مشغل الموسيقى */
+        .music-bar { background: var(--light-gray); margin: 20px; padding: 15px; border-radius: 50px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #333; }
+        .music-bar button { background: var(--main-red); border: none; color: white; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; }
 
         /* منطقة التايمر */
-        .timer-zone { background: var(--card-dark); padding: 25px; border-radius: 25px; margin: 25px 0; text-align: center; border: 1px solid rgba(255, 0, 0, 0.2); box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5); }
-        #timer-val { font-size: 4rem; font-weight: 900; color: var(--pro-red); display: block; font-family: 'Courier New', monospace; letter-spacing: -2px; }
-        .btn-start { background: linear-gradient(180deg, #ff4444, var(--pro-red)); color: white; border: none; padding: 18px; border-radius: 50px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4); }
-        .btn-start:active { transform: translateY(2px); box-shadow: 0 2px 10px rgba(255, 0, 0, 0.2); }
-
-        .category-title { color: var(--pro-red); font-size: 1.6rem; margin: 40px 0 15px; font-weight: 900; text-transform: uppercase; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #222; padding-bottom: 5px; }
-        .exercise-card { background: var(--card-dark); padding: 20px; border-radius: 20px; margin-bottom: 25px; border: 1px solid #1a1a1a; transition: 0.3s; position: relative; }
-        .exercise-card:hover { border-color: rgba(255, 0, 0, 0.5); }
-        .ex-header { display: flex; justify-content: space-between; align-items: start; }
-        .ex-name { font-size: 1.2rem; font-weight: bold; color: var(--pure-white); display: block; }
-        .ex-sets { color: var(--pro-red); font-size: 0.95rem; font-weight: bold; margin-top: 5px; display: block; }
+        .timer-box { background: linear-gradient(145deg, #111, #222); padding: 30px; border-radius: 30px; margin: 20px; text-align: center; border: 1px solid var(--main-red); box-shadow: 0 0 15px rgba(230,0,0,0.2); }
+        #timer-display { font-size: 4.5rem; font-weight: 900; color: var(--main-red); font-family: 'Courier New', monospace; text-shadow: 0 0 10px rgba(230,0,0,0.5); }
         
-        .btn-video { background: #000; color: var(--pure-white); border: 1px solid var(--pro-red); padding: 10px 20px; border-radius: 12px; font-size: 0.9rem; cursor: pointer; margin-top: 15px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: bold; transition: 0.3s; }
-        .btn-video:hover { background: var(--pro-red); color: black; }
-        .btn-video i { font-size: 1.1rem; }
+        /* كروت التمارين */
+        .ex-card { background: var(--light-gray); padding: 20px; border-radius: 25px; margin: 20px; border: 1px solid #222; transition: 0.4s; }
+        .ex-card:hover { transform: translateY(-5px); border-color: var(--main-red); box-shadow: 0 10px 20px rgba(230,0,0,0.3); }
+        .ex-name { font-size: 1.3rem; font-weight: bold; color: var(--pure-white); display: block; }
+        .ex-info { color: var(--main-red); font-weight: bold; font-size: 0.9rem; }
+        .video-link { background: #000; color: var(--pure-white); border: 1px solid var(--main-red); padding: 10px 20px; border-radius: 50px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; margin-top: 15px; font-weight: bold; font-size: 0.9rem; transition: 0.3s; }
+        .video-link:hover { background: var(--main-red); }
 
-        /* الجدول الأسبوعي */
-        .week-table { width: 100%; border-collapse: collapse; background: #0a0a0a; border-radius: 20px; overflow: hidden; margin: 25px 0; border: 1px solid #1a1a1a; }
-        .week-table td { padding: 18px; border-bottom: 1px solid #111; text-align: center; font-size: 0.95rem; }
-        .today { background: rgba(255, 0, 0, 0.2) !important; color: white !important; font-weight: bold; border-right: 4px solid var(--pro-red); }
+        /* الجدول */
+        .table-pro { width: 90%; margin: 20px auto; border-collapse: collapse; border-radius: 20px; overflow: hidden; }
+        .table-pro td { padding: 15px; background: #0a0a0a; border: 1px solid #1a1a1a; text-align: center; }
+        .active-day { background: var(--main-red) !important; color: white !important; font-weight: 900; }
 
-        /* أزرار التواصل الاجتماعي */
-        .social-box { background: var(--card-dark); padding: 20px; border-radius: 25px; margin: 40px 0; border: 1px solid #222; }
-        .social-links { display: flex; gap: 10px; justify-content: center; margin-top: 15px; }
-        .social-btn { padding: 15px; border-radius: 50px; color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
-        .social-btn:active { transform: scale(0.95); }
-        .fb-btn { background: var(--fb-blue); }
-        .wa-btn { background: var(--wa-green); animation: pulseWa 2s infinite; }
-        @keyframes pulseWa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        /* التواصل الاجتماعي */
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px; }
+        .social-item { padding: 15px; border-radius: 20px; text-decoration: none; color: white; font-weight: bold; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.1rem; }
+        .wa-item { background: #25d366; animation: pulse 2s infinite; }
+        .fb-item { background: #1877f2; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.4); } 70% { box-shadow: 0 0 0 15px rgba(0,0,0,0); } }
 
-        .footer { text-align: center; padding: 40px 20px; color: #555; font-size: 0.85rem; border-top: 1px solid #111; }
+        .footer { text-align: center; padding: 40px; color: #444; font-size: 0.8rem; letter-spacing: 1px; }
+        .btn-action { background: var(--main-red); color: white; border: none; padding: 18px; border-radius: 50px; width: 100%; font-size: 1.3rem; font-weight: 900; cursor: pointer; box-shadow: 0 5px 15px rgba(230,0,0,0.4); }
     </style>
 </head>
 <body>
 
-    <div id="name-overlay">
-        <div class="name-box">
-            <i class="fas fa-dumbbell"></i>
-            <h1 style="color:var(--pure-white); margin-bottom:10px; font-size:1.8rem;">YOUSSEF FITNESS</h1>
-            <p style="color:#aaa; margin-bottom:25px;">ادخل بياناتك لبدء التدريب كالمحترفين:</p>
-            <input type="text" id="u-name" class="app-input" placeholder="اسمك الكامل" required>
-            <input type="email" id="u-email" class="app-input" placeholder="بريدك الإلكتروني" required>
-            <button class="btn-start" onclick="saveUserData()">ابدأ التدريب 🥊</button>
+    <div id="splash">
+        <div class="login-card">
+            <i class="fas fa-bolt"></i>
+            <h2>YOUSSEF ELADAWY</h2>
+            <p>سجل بياناتك لدخول عالم الأبطال</p>
+            <input type="text" id="name-in" class="input-field" placeholder="اسمك الكامل">
+            <input type="email" id="email-in" class="input-field" placeholder="بريدك الإلكتروني">
+            <button class="btn-action" onclick="initApp()">ابدأ التدريب الآن 🥊</button>
         </div>
     </div>
 
-    <audio id="bg-music" loop>
-        <source src="https://ia801602.us.archive.org/32/items/y2mate.com-free-rap-instrumental-aggressive-hard-90s-boom-bap-old-school-type-beat-music/y2mate.com%20-%20%28FREE%29%20Aggressive%20Hard%20Rap%20Instrumental%2090s%20Boom%20Bap%20Old%20School%20Type%20Beat%20Music.mp3" type="audio/mpeg">
+    <audio id="player" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
     <header>
-        <i class="fas fa-heartbeat"></i>
-        <h1 id="welcome-title">يوسف العدوي</h1>
-        <p style="color:var(--pro-red); font-weight:bold; letter-spacing:1px; margin-top:10px;">PRO TRAINING APP</p>
+        <h1 id="user-title">يوسف العدوي</h1>
+        <p style="color:var(--main-red); font-weight:bold;">PREMIUM TRAINING EXPERIENCE</p>
     </header>
 
-    <div class="container">
+    <div class="container" style="max-width: 500px; margin: auto;">
         
-        <div class="music-control">
-            <p><i class="fas fa-music" style="color:#aaa;"></i> الموسيقى الحماسية</p>
-            <button onclick="toggleMusic()"><i id="music-icon" class="fas fa-pause-circle"></i></button>
+        <div class="music-bar">
+            <span><i class="fas fa-music"></i> الموسيقى الحماسية</span>
+            <button onclick="toggleAudio()"><i id="m-icon" class="fas fa-play"></i></button>
         </div>
 
-        <div class="timer-zone">
-            <small style="color:#777; font-weight:bold; text-transform:uppercase;">REST TIMER</small>
-            <span id="timer-val">00:45</span>
-            <button class="btn-start" onclick="runProTimer()">START REST (45s) 🔔</button>
+        <div class="timer-box">
+            <small>وقت الراحة REST</small>
+            <div id="timer-display">00:45</div>
+            <button class="btn-action" onclick="startTimer()">ابدأ الراحة 🔔</button>
         </div>
 
-        <h2 class="category-title"><i class="fas fa-fist-raised"></i> تمارين القوة</h2>
-        <div class="exercise-card">
-            <div class="ex-header">
-                <div><span class="ex-name">تمرين الضغط (Push-ups)</span><span class="ex-sets">10 مجموعات × 20-50 عدة</span></div>
-                <input type="checkbox" style="width:25px; height:25px; accent-color:var(--pro-red);">
-            </div>
-            <a href="https://www.youtube.com/watch?v=IODxDxX7oi4" target="_blank" class="btn-video"><i class="fab fa-youtube"></i> فيديو الشرح</a>
-        </div>
-        <div class="exercise-card">
-            <div class="ex-header">
-                <div><span class="ex-name">تمرين المتوازي (Dips)</span><span class="ex-sets">5 مجموعات × 20 عدة</span></div>
-                <input type="checkbox" style="width:25px; height:25px; accent-color:var(--pro-red);">
-            </div>
-            <a href="https://www.youtube.com/watch?v=2z8JmcrW-As" target="_blank" class="btn-video"><i class="fab fa-youtube"></i> فيديو الشرح</a>
+        <h2 style="margin: 20px; color: var(--main-red); border-right: 4px solid #fff; padding-right: 10px;">روتين القوة 🦾</h2>
+        
+        <div class="ex-card">
+            <span class="ex-name">تمرين الضغط (Push-ups)</span>
+            <span class="ex-info">10 مجموعات × 30 عدة</span>
+            <a href="https://www.youtube.com/results?search_query=how+to+do+pushups" target="_blank" class="video-link"><i class="fab fa-youtube"></i> فيديو الشرح</a>
         </div>
 
-        <h2 class="category-title"><i class="fas fa-shield-alt"></i> الرقبة والترابيس</h2>
-        <div class="exercise-card">
-            <div class="ex-header">
-                <div><span class="ex-name">تمرين الرقبة (Neck Bridge)</span><span class="ex-sets">3 مجموعات × 1 دقيقة تحمل</span></div>
-                <input type="checkbox" style="width:25px; height:25px; accent-color:var(--pro-red);">
-            </div>
-            <a href="https://www.youtube.com/watch?v=uD9lUvE83rU" target="_blank" class="btn-video"><i class="fab fa-youtube"></i> فيديو الشرح</a>
-        </div>
-        <div class="exercise-card">
-            <div class="ex-header">
-                <div><span class="ex-name">شراغز (Dumbbell Shrugs)</span><span class="ex-sets">4 مجموعات × 15 عدة</span></div>
-                <input type="checkbox" style="width:25px; height:25px; accent-color:var(--pro-red);">
-            </div>
-            <a href="https://www.youtube.com/watch?v=68tD2z7Lp0Y" target="_blank" class="btn-video"><i class="fab fa-youtube"></i> فيديو الشرح</a>
+        <div class="ex-card">
+            <span class="ex-name">تمرين المتوازي (Dips)</span>
+            <span class="ex-info">5 مجموعات × 15 عدة</span>
+            <a href="https://www.youtube.com/results?search_query=how+to+do+dips" target="_blank" class="video-link"><i class="fab fa-youtube"></i> فيديو الشرح</a>
         </div>
 
-        <h2 class="category-title"><i class="fas fa-calendar-alt"></i> الجدول الأسبوعي</h2>
-        <table class="week-table">
-            <tr id="d0"><td>الأحد</td><td>تحمل + ملاكمة</td></tr>
-            <tr id="d1"><td>الاثنين</td><td>حديد (قوة انفجارية)</td></tr>
-            <tr id="d2"><td>الثلاثاء</td><td>راحة 🛌</td></tr>
-            <tr id="d3"><td>الأربعاء</td><td>وزن جسم + جري</td></tr>
-            <tr id="d4"><td>الخميس</td><td>أكتاف + رقبة 🥊</td></tr>
-            <tr id="d5"><td>الجمعة</td><td>فول بودي (شرس)</td></tr>
-            <tr id="d6"><td>السبت</td><td>راحة 🌴</td></tr>
+        <div class="ex-card">
+            <span class="ex-name">تمارين الرقبة (Neck Bridge)</span>
+            <span class="ex-info">3 مجموعات × 1 دقيقة</span>
+            <a href="https://www.youtube.com/results?search_query=mike+tyson+neck+workout" target="_blank" class="video-link"><i class="fab fa-youtube"></i> فيديو الشرح</a>
+        </div>
+
+        <h2 style="margin: 20px; color: var(--main-red); border-right: 4px solid #fff; padding-right: 10px;">جدولك الأسبوعي 📅</h2>
+        <table class="table-pro">
+            <tr id="day-0"><td>الأحد</td><td>ملاكمة 🥊</td></tr>
+            <tr id="day-1"><td>الاثنين</td><td>حديد 💪</td></tr>
+            <tr id="day-2"><td>الثلاثاء</td><td>راحة 🛌</td></tr>
+            <tr id="day-3"><td>الأربعاء</td><td>جري 🏃</td></tr>
+            <tr id="day-4"><td>الخميس</td><td>رقبة + أكتاف</td></tr>
+            <tr id="day-5"><td>الجمعة</td><td>تمرين شامل</td></tr>
+            <tr id="day-6"><td>السبت</td><td>راحة 🌴</td></tr>
         </table>
 
-        <div class="social-box">
-            <p style="margin:0; text-align:center; font-weight:bold; color:#aaa;">للاشتراك في البريميوم أو الاستفسار:</p>
-            <div class="social-links">
-                <a href="https://wa.me/201551853099" target="_blank" class="social-btn wa-btn"><i class="fab fa-whatsapp"></i> الواتساب</a>
-                <a href="https://www.facebook.com/jou.eladawy/" target="_blank" class="social-btn fb-btn"><i class="fab fa-facebook-f"></i> الفيسبوك</a>
-            </div>
+        <div class="social-grid">
+            <a href="https://wa.me/201551853099" target="_blank" class="social-item wa-item"><i class="fab fa-whatsapp"></i> واتساب</a>
+            <a href="https://www.facebook.com/jou.eladawy/" target="_blank" class="social-item fb-item"><i class="fab fa-facebook-f"></i> فيسبوك</a>
         </div>
 
         <div class="footer">
-            تطوير يوسف أحمد العدوي © 2026<br>
-            <small>Built like a tank. Built for professionals.</small>
+            تم التطوير بواسطة يوسف أحمد العدوي<br>
+            VERSION 2.0 PREMIUM APP © 2026
         </div>
     </div>
 
     <script>
-        // نظام تسجيل المستخدم الكامل
-        const uMusic = document.getElementById('bg-music');
-        const uIcon = document.getElementById('music-icon');
+        const audio = document.getElementById('player');
+        const mIcon = document.getElementById('m-icon');
 
-        function saveUserData() {
-            const name = document.getElementById('u-name').value;
-            const email = document.getElementById('u-email').value;
-
-            if(name.trim() !== "" && email.trim() !== "") {
-                // حفظ البيانات كلها في الـ Storage
-                localStorage.setItem('fit_name', name);
-                localStorage.setItem('fit_email', email);
-                
-                // إخفاء شاشة الدخول وبدء التشغيل
-                document.getElementById('name-overlay').style.opacity = '0';
-                setTimeout(() => document.getElementById('name-overlay').style.display = 'none', 500);
-                document.getElementById('welcome-title').innerText = "يا هلا يا كوتش " + name;
-
-                // بدء الموسيقى الحماسية تلقائياً
-                uMusic.play();
-            } else { alert("اكتب اسمك وإيميلك يا بطل عشان نبدأ! 🔥"); }
+        function initApp() {
+            const name = document.getElementById('name-in').value;
+            const email = document.getElementById('email-in').value;
+            if(name && email) {
+                localStorage.setItem('u_name', name);
+                localStorage.setItem('u_email', email);
+                document.getElementById('splash').style.transform = 'translateY(-100%)';
+                document.getElementById('user-title').innerText = "كوتش " + name;
+                audio.play();
+                mIcon.className = "fas fa-pause";
+            } else { alert("يا بطل سجل بياناتك الأول! 🔥"); }
         }
 
-        // تشغيل الموقع لو البيانات مسجلة
         window.onload = () => {
-            const sName = localStorage.getItem('fit_name');
-            const day = new Date().getDay();
-            const row = document.getElementById('d' + day);
-            
-            if(sName) {
-                document.getElementById('name-overlay').style.display = 'none';
-                document.getElementById('welcome-title').innerText = "يا هلا يا كوتش " + sName;
-                // هنا لا يمكن تشغيل الموسيقى لوحده (قوانين جوجل)
+            const saved = localStorage.getItem('u_name');
+            if(saved) {
+                document.getElementById('splash').style.display = 'none';
+                document.getElementById('user-title').innerText = "كوتش " + saved;
             }
-            if(row) row.classList.add('today');
+            const d = new Date().getDay();
+            document.getElementById('day-' + d).classList.add('active-day');
         };
 
-        // تحكم الموسيقى (تشغيل وإيقاف)
-        function toggleMusic() {
-            if (uMusic.paused) {
-                uMusic.play();
-                uIcon.className = "fas fa-pause-circle";
-            } else {
-                uMusic.pause();
-                uIcon.className = "fas fa-play-circle";
-            }
+        function toggleAudio() {
+            if(audio.paused) { audio.play(); mIcon.className = "fas fa-pause"; }
+            else { audio.pause(); mIcon.className = "fas fa-play"; }
         }
 
-        // تايمر المحترفين (45 ثانية)
-        let tPro;
-        function runProTimer() {
-            clearInterval(tPro);
-            let sPro = 45;
-            const dPro = document.getElementById('timer-val');
-            tPro = setInterval(() => {
-                let secPro = sPro % 60;
-                dPro.innerText = `00:${secPro < 10 ? '0' : ''}${secPro}`;
-                if (sPro <= 0) {
-                    clearInterval(tPro);
-                    const sN = localStorage.getItem('fit_name') || "بطل";
-                    
-                    // تنبيه صوتي بسيط (لا يعارض الموسيقى)
-                    try {
-                        const aC = new (window.AudioContext || window.webkitAudioContext)();
-                        const oscP = aC.createOscillator();
-                        oscP.frequency.value = 1000;
-                        oscP.connect(aC.destination);
-                        oscP.start();
-                        oscP.stop(aC.currentTime + 0.3);
-                    } catch(e) {}
-                    
-                    alert("يللا يا كوتش " + sN + " للتمرين اللي بعده! 🥊");
-                    dPro.innerText = "00:45";
+        let timer;
+        function startTimer() {
+            clearInterval(timer);
+            let timeLeft = 45;
+            const display = document.getElementById('timer-display');
+            timer = setInterval(() => {
+                let s = timeLeft % 60;
+                display.innerText = `00:${s < 10 ? '0' : ''}${s}`;
+                if(timeLeft <= 0) {
+                    clearInterval(timer);
+                    alert("انتهى وقت الراحة، يللا ع التمرين! 🥊");
+                    display.innerText = "00:45";
                 }
-                sPro--;
+                timeLeft--;
             }, 1000);
         }
     </script>
