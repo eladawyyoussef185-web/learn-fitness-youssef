@@ -3,101 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YOUSSEF FITNESS | PRO</title>
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="theme-color" content="#ff3131">
-    
+    <title>YOUSSEF FITNESS PRO | التطبيق الرسمي</title>
     <style>
-        :root { --main-red: #ff3131; --gold: #ffde59; --dark-bg: #121212; --card-bg: #1e1e1e; }
-        body { background-color: var(--dark-bg); color: white; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; }
-        .container { max-width: 600px; margin: auto; padding: 20px; }
+        :root { --main-red: #ff3131; --gold: #ffde59; --dark-bg: #0f0f0f; --card-bg: #1e1e1e; }
+        body { background-color: var(--dark-bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        .container { max-width: 500px; margin: auto; padding: 15px; }
         
-        /* Header & Install Button */
-        header { background: linear-gradient(135deg, #000, var(--main-red)); padding: 40px 20px; border-radius: 0 0 25px 25px; text-align: center; border-bottom: 3px solid var(--gold); position: relative; }
-        #install-btn { display: none; background: var(--gold); color: black; border: none; padding: 10px 20px; border-radius: 50px; font-weight: bold; margin-top: 15px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 222, 89, 0.3); }
+        /* Header */
+        header { background: linear-gradient(135deg, #000, var(--main-red)); padding: 40px 20px; border-radius: 0 0 30px 30px; text-align: center; border-bottom: 4px solid var(--gold); }
+        h1 { margin: 0; font-size: 2rem; text-transform: uppercase; }
+        
+        /* Timer Style */
+        .timer-box { background: #262626; padding: 15px; border-radius: 15px; margin: 20px 0; text-align: center; border: 2px solid var(--gold); }
+        #timer-display { font-size: 2.5rem; font-weight: bold; color: var(--gold); display: block; }
+        .timer-btn { background: var(--main-red); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
 
-        .section-title { color: var(--main-red); border-right: 4px solid var(--gold); padding-right: 10px; margin: 30px 0 15px; font-size: 1.4rem; }
-        .card { background: var(--card-bg); padding: 15px; border-radius: 12px; border: 1px solid #333; margin-bottom: 15px; }
-        .card h3 { color: var(--gold); margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid #444; padding-bottom: 5px; }
-        .ex-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #333; font-size: 0.95rem; }
-        .sets { color: var(--main-red); font-weight: bold; }
+        /* Exercise Cards */
+        .section-title { color: var(--main-red); border-right: 4px solid var(--gold); padding-right: 10px; margin: 25px 0 15px; }
+        .card { background: var(--card-bg); padding: 15px; border-radius: 15px; border: 1px solid #333; margin-bottom: 15px; position: relative; }
+        .card h3 { color: var(--gold); margin: 0 0 10px 0; font-size: 1.1rem; }
+        .ex-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed #444; }
         
-        table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 10px; overflow: hidden; margin-top: 10px; }
-        th, td { padding: 12px; border: 1px solid #333; text-align: center; }
-        th { background: var(--main-red); }
+        /* Checkbox for Sets */
+        .set-check { width: 22px; height: 22px; cursor: pointer; accent-color: var(--gold); }
+        .sets-info { color: var(--main-red); font-weight: bold; font-size: 0.9rem; }
+
+        /* Schedule */
+        table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 10px; overflow: hidden; }
+        td { padding: 12px; border: 1px solid #333; text-align: center; }
         .active-day { background: var(--gold) !important; color: black !important; font-weight: bold; }
-        
-        .footer { text-align: center; padding: 30px; color: #666; font-size: 0.8rem; }
+
+        .footer { text-align: center; padding: 30px; color: #666; font-size: 0.8rem; border-top: 1px solid #222; margin-top: 20px; }
     </style>
 </head>
 <body>
+
     <header>
-        <h1 style="margin:0;">YOUSSEF FITNESS PRO</h1>
-        <p style="color:var(--gold); margin:5px 0 0;">دليلك للتدريب الاحترافي 💪</p>
-        <button id="install-btn">📥 تحميل التطبيق على الموبايل</button>
+        <h1>YOUSSEF FITNESS</h1>
+        <p style="color:var(--gold);">جاهز للتمرين يا بطل؟ 💪</p>
     </header>
 
     <div class="container">
-        <h2 class="section-title">🔥 تمارين الأسبوع</h2>
+        
+        <div class="timer-box">
+            <small>وقت الراحة بين المجاميع</small>
+            <span id="timer-display">01:00</span>
+            <button class="timer-btn" onclick="startTimer()">ابدأ الراحة (60 ثانية)</button>
+        </div>
+
+        <h2 class="section-title">🏋️ تمارين اليوم</h2>
         
         <div class="card">
             <h3>الصدر والتراي (Chest & Tri)</h3>
-            <div class="ex-item"><span>بنش برس (Flat Bench)</span> <span class="sets">4 × 10</span></div>
-            <div class="ex-item"><span>تجميع دمبل (Dumbbell Press)</span> <span class="sets">3 × 12</span></div>
-            <div class="ex-item"><span>ترايسبس (Pushdowns)</span> <span class="sets">4 × 12</span></div>
+            <div class="ex-item">
+                <div><span>بنش برس (Flat Bench)</span><br><small class="sets-info">4 مجموعات × 10 عدات</small></div>
+                <input type="checkbox" class="set-check">
+            </div>
+            <div class="ex-item">
+                <div><span>تجميع دمبل (Dumbbell Press)</span><br><small class="sets-info">3 مجموعات × 12 عدة</small></div>
+                <input type="checkbox" class="set-check">
+            </div>
+            <div class="ex-item">
+                <div><span>ترايسبس (Pushdowns)</span><br><small class="sets-info">4 مجموعات × 12 عدة</small></div>
+                <input type="checkbox" class="set-check">
+            </div>
         </div>
 
-        <div class="card">
-            <h3>الظهر والباي (Back & Bicep)</h3>
-            <div class="ex-item"><span>سحب عالي (Lat Pulldown)</span> <span class="sets">4 × 10</span></div>
-            <div class="ex-item"><span>سحب أرضي (Seated Row)</span> <span class="sets">3 × 12</span></div>
-            <div class="ex-item"><span>بايسبس (Hammer Curls)</span> <span class="sets">4 × 10</span></div>
-        </div>
-
-        <h2 class="section-title">📅 الجدول الأسبوعي الذكي</h2>
+        <h2 class="section-title">📅 الجدول الأسبوعي</h2>
         <table>
             <tbody id="sched">
                 <tr id="d0"><td>الأحد</td><td>صدر + تراي</td></tr>
                 <tr id="d1"><td>الاثنين</td><td>ظهر + باي</td></tr>
                 <tr id="d2"><td>الثلاثاء</td><td>راحة 🛌</td></tr>
-                <tr id="d3"><td>الأربعاء</td><td>أرجل + بطن</td></tr>
-                <tr id="d4"><td>الخميس</td><td>أكتاف + كارديو</td></tr>
-                <tr id="d5"><td>الجمعة</td><td>فول بودي</td></tr>
-                <tr id="d6"><td>السبت</td><td>راحة 🌴</td></tr>
-            </tbody>
-        </table>
-
-        <div class="footer">تطوير يوسف أحمد العدوي &copy; 2026</div>
-    </div>
-
-    <script>
-        // كود تحديد اليوم
-        const d = new Date().getDay();
-        const r = document.getElementById('d' + d);
-        if(r) r.classList.add('active-day');
-
-        // كود زرار التحميل
-        let deferredPrompt;
-        const installBtn = document.getElementById('install-btn');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installBtn.style.display = 'inline-block';
-        });
-
-        installBtn.addEventListener('click', () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        installBtn.style.display = 'none';
-                    }
-                    deferredPrompt = null;
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+                <tr id="d3"><td>الأربعاء
