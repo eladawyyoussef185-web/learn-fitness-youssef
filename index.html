@@ -3,115 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YOUSSEF FITNESS PRO | التطبيق الرسمي</title>
+    <title>IRON YOUSSEF | TYSON MODE</title>
     <style>
-        :root { --main-red: #ff3131; --gold: #ffde59; --dark-bg: #0f0f0f; --card-bg: #1e1e1e; }
-        body { background-color: var(--dark-bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        :root { --tyson-red: #d32f2f; --iron-gold: #ffc107; --dark-void: #0a0a0a; --card-grey: #1a1a1a; }
+        body { background-color: var(--dark-void); color: white; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; }
         .container { max-width: 500px; margin: auto; padding: 15px; }
         
         /* Header */
-        header { background: linear-gradient(135deg, #000, var(--main-red)); padding: 40px 20px; border-radius: 0 0 30px 30px; text-align: center; border-bottom: 4px solid var(--gold); }
-        h1 { margin: 0; font-size: 2rem; text-transform: uppercase; }
+        header { background: linear-gradient(180deg, #000, var(--tyson-red)); padding: 50px 20px; border-radius: 0 0 40px 40px; text-align: center; border-bottom: 5px solid var(--iron-gold); }
+        h1 { margin: 0; font-size: 2.2rem; letter-spacing: 2px; text-shadow: 3px 3px 5px black; }
         
-        /* Timer Style */
-        .timer-box { background: #262626; padding: 15px; border-radius: 15px; margin: 20px 0; text-align: center; border: 2px solid var(--gold); }
-        #timer-display { font-size: 2.5rem; font-weight: bold; color: var(--gold); display: block; }
-        .timer-btn { background: var(--main-red); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        /* Timer Area */
+        .timer-zone { background: var(--card-grey); padding: 20px; border-radius: 20px; margin: 25px 0; text-align: center; border: 1px solid var(--iron-gold); box-shadow: 0 0 15px rgba(255, 193, 7, 0.1); }
+        #timer-val { font-size: 3rem; font-weight: 900; color: var(--iron-gold); display: block; margin-bottom: 10px; }
+        .btn-start { background: var(--tyson-red); color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-start:active { transform: scale(0.9); }
 
-        /* Exercise Cards */
-        .section-title { color: var(--main-red); border-right: 4px solid var(--gold); padding-right: 10px; margin: 25px 0 15px; }
-        .card { background: var(--card-bg); padding: 15px; border-radius: 15px; border: 1px solid #333; margin-bottom: 15px; position: relative; }
-        .card h3 { color: var(--gold); margin: 0 0 10px 0; font-size: 1.1rem; }
-        .ex-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed #444; }
-        
-        /* Checkbox for Sets */
-        .set-check { width: 22px; height: 22px; cursor: pointer; accent-color: var(--gold); }
-        .sets-info { color: var(--main-red); font-weight: bold; font-size: 0.9rem; }
+        /* Workout Cards */
+        .category-title { color: var(--iron-gold); font-size: 1.5rem; margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; }
+        .exercise-card { background: var(--card-grey); padding: 18px; border-radius: 15px; margin-bottom: 15px; border-right: 6px solid var(--tyson-red); }
+        .ex-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .ex-name { font-size: 1.1rem; font-weight: bold; color: #eee; }
+        .ex-sets { color: var(--tyson-red); font-weight: bold; font-size: 0.9rem; margin-top: 5px; display: block; }
+        .check-box { width: 25px; height: 25px; accent-color: var(--iron-gold); cursor: pointer; }
 
         /* Schedule */
-        table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 10px; overflow: hidden; }
-        td { padding: 12px; border: 1px solid #333; text-align: center; }
-        .active-day { background: var(--gold) !important; color: black !important; font-weight: bold; }
+        .week-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #111; border-radius: 15px; overflow: hidden; border: 1px solid #333; }
+        .week-table td { padding: 15px; text-align: center; border-bottom: 1px solid #222; }
+        .today { background: var(--iron-gold) !important; color: black !important; font-weight: 900; }
 
-        .footer { text-align: center; padding: 30px; color: #666; font-size: 0.8rem; border-top: 1px solid #222; margin-top: 20px; }
+        .footer { text-align: center; padding: 40px; color: #555; font-size: 0.8rem; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>YOUSSEF FITNESS</h1>
-        <p style="color:var(--gold);">جاهز للتمرين يا بطل؟ 💪</p>
+        <h1>IRON YOUSSEF</h1>
+        <p style="color:var(--iron-gold); font-weight:bold; margin-top:10px;">نظام "مايك تايسون" للوحوش 💪🥊</p>
     </header>
 
     <div class="container">
         
-        <div class="timer-box">
-            <small>وقت الراحة بين المجاميع</small>
-            <span id="timer-display">01:00</span>
-            <button class="timer-btn" onclick="startTimer()">ابدأ الراحة (60 ثانية)</button>
+        <div class="timer-zone">
+            <small style="color:#aaa;">وقت الراحة المحاربين</small>
+            <span id="timer-val">00:45</span>
+            <button class="btn-start" onclick="runTimer()">ابدأ الراحة (45 ثانية)</button>
         </div>
 
-        <h2 class="section-title">🏋️ تمارين اليوم</h2>
+        <h2 class="category-title">🥊 روتين القوة (Bodyweight)</h2>
         
-        <div class="card">
-            <h3>الصدر والتراي (Chest & Tri)</h3>
-            <div class="ex-item">
-                <div><span>بنش برس (Flat Bench)</span><br><small class="sets-info">4 مجموعات × 10 عدات</small></div>
-                <input type="checkbox" class="set-check">
-            </div>
-            <div class="ex-item">
-                <div><span>تجميع دمبل (Dumbbell Press)</span><br><small class="sets-info">3 مجموعات × 12 عدة</small></div>
-                <input type="checkbox" class="set-check">
-            </div>
-            <div class="ex-item">
-                <div><span>ترايسبس (Pushdowns)</span><br><small class="sets-info">4 مجموعات × 12 عدة</small></div>
-                <input type="checkbox" class="set-check">
+        <div class="exercise-card">
+            <div class="ex-header">
+                <div>
+                    <span class="ex-name">تمرين الضغط (Push-ups)</span>
+                    <span class="ex-sets">10 مجموعات × 20-50 عدة</span>
+                </div>
+                <input type="checkbox" class="check-box">
             </div>
         </div>
 
-        <h2 class="section-title">📅 الجدول الأسبوعي</h2>
-        <table>
-            <tbody id="sched">
-                <tr id="d0"><td>الأحد</td><td>صدر + تراي</td></tr>
-                <tr id="d1"><td>الاثنين</td><td>ظهر + باي</td></tr>
-                <tr id="d2"><td>الثلاثاء</td><td>راحة 🛌</td></tr>
-                <tr id="d3"><td>الأربعاء</td><td>أرجل + بطن</td></tr>
-                <tr id="d4"><td>الخميس</td><td>أكتاف + كارديو</td></tr>
-                <tr id="d5"><td>الجمعة</td><td>فول بودي</td></tr>
-                <tr id="d6"><td>السبت</td><td>راحة 🌴</td></tr>
-            </tbody>
+        <div class="exercise-card">
+            <div class="ex-header">
+                <div>
+                    <span class="ex-name">تمرين المتوازي (Dips)</span>
+                    <span class="ex-sets">5 مجموعات × 20 عدة</span>
+                </div>
+                <input type="checkbox" class="check-box">
+            </div>
+        </div>
+
+        <h2 class="category-title">⛓️ روتين الحديد والرقبة</h2>
+        
+        <div class="exercise-card">
+            <div class="ex-header">
+                <div>
+                    <span class="ex-name">تمرين الرقبة (Neck Bridge)</span>
+                    <span class="ex-sets">3 مجموعات × 1 دقيقة تحمل</span>
+                </div>
+                <input type="checkbox" class="check-box">
+            </div>
+        </div>
+
+        <div class="exercise-card">
+            <div class="ex-header">
+                <div>
+                    <span class="ex-name">شراغز بالأوزان (Dumbbell Shrugs)</span>
+                    <span class="ex-sets">4 مجموعات × 15 عدة (للترابيس)</span>
+                </div>
+                <input type="checkbox" class="check-box">
+            </div>
+        </div>
+
+        <h2 class="category-title">📅 جدول التدريب</h2>
+        <table class="week-table">
+            <tr id="d0"><td>الأحد</td><td>تحمل + ملاكمة</td></tr>
+            <tr id="d1"><td>الاثنين</td><td>حديد (قوة انفجارية)</td></tr>
+            <tr id="d2"><td>الثلاثاء</td><td>راحة 🛌</td></tr>
+            <tr id="d3"><td>الأربعاء</td><td>وزن جسم + جري</td></tr>
+            <tr id="d4"><td>الخميس</td><td>أكتاف + رقبة 🥊</td></tr>
+            <tr id="d5"><td>الجمعة</td><td>فول بودي (شرس)</td></tr>
+            <tr id="d6"><td>السبت</td><td>راحة 🌴</td></tr>
         </table>
 
         <div class="footer">
-            تطوير الكابتن يوسف أحمد العدوي &copy; 2026<br>
-            <small>استمر.. العضلة مش بتكبر بالراحة!</small>
+            DESIGNED BY YOUSSEF AHMED ELADAWY<br>
+            "I'm a dreamer. I have to dream and reach for the stars." - Mike Tyson
         </div>
     </div>
 
     <script>
-        // كود تحديد اليوم
-        const d = new Date().getDay();
-        const r = document.getElementById('d' + d);
-        if(r) r.classList.add('active-day');
+        // تحديد اليوم
+        const day = new Date().getDay();
+        const row = document.getElementById('d' + day);
+        if(row) row.classList.add('today');
 
-        // كود التايمر
-        let timer;
-        function startTimer() {
-            clearInterval(timer);
-            let timeLeft = 60;
-            const display = document.getElementById('timer-display');
-            
-            timer = setInterval(() => {
-                let minutes = Math.floor(timeLeft / 60);
-                let seconds = timeLeft % 60;
-                display.innerText = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-                
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    alert("انتهى وقت الراحة! وحش.. خش المجموعة اللي بعدها! 💪");
-                    display.innerText = "01:00";
+        // كود التايمر (45 ثانية لتايسون)
+        let t;
+        function runTimer() {
+            clearInterval(t);
+            let s = 45;
+            const display = document.getElementById('timer-val');
+            t = setInterval(() => {
+                let sec = s % 60;
+                display.innerText = `00:${sec < 10 ? '0' : ''}${sec}`;
+                if (s <= 0) {
+                    clearInterval(t);
+                    alert("انتهى الوقت! ارجع كمل تمرين يا وحش! 🥊");
+                    display.innerText = "00:45";
                 }
-                timeLeft--;
+                s--;
             }, 1000);
         }
     </script>
