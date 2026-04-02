@@ -75,4 +75,45 @@
                 <tr id="d0"><td>الأحد</td><td>صدر + تراي</td></tr>
                 <tr id="d1"><td>الاثنين</td><td>ظهر + باي</td></tr>
                 <tr id="d2"><td>الثلاثاء</td><td>راحة 🛌</td></tr>
-                <tr id="d3"><td>الأربعاء
+                <tr id="d3"><td>الأربعاء</td><td>أرجل + بطن</td></tr>
+                <tr id="d4"><td>الخميس</td><td>أكتاف + كارديو</td></tr>
+                <tr id="d5"><td>الجمعة</td><td>فول بودي</td></tr>
+                <tr id="d6"><td>السبت</td><td>راحة 🌴</td></tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            تطوير الكابتن يوسف أحمد العدوي &copy; 2026<br>
+            <small>استمر.. العضلة مش بتكبر بالراحة!</small>
+        </div>
+    </div>
+
+    <script>
+        // كود تحديد اليوم
+        const d = new Date().getDay();
+        const r = document.getElementById('d' + d);
+        if(r) r.classList.add('active-day');
+
+        // كود التايمر
+        let timer;
+        function startTimer() {
+            clearInterval(timer);
+            let timeLeft = 60;
+            const display = document.getElementById('timer-display');
+            
+            timer = setInterval(() => {
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                display.innerText = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    alert("انتهى وقت الراحة! وحش.. خش المجموعة اللي بعدها! 💪");
+                    display.innerText = "01:00";
+                }
+                timeLeft--;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
