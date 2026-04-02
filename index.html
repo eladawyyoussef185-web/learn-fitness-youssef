@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IRON YOUSSEF | COACH MODE</title>
+    <title>YOUSSEF ELADAWY | TRAINING</title>
     <style>
         :root { --tyson-red: #ff3131; --iron-gold: #ffde59; --dark-bg: #0a0a0a; --card-bg: #1a1a1a; }
         body { background-color: var(--dark-bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
@@ -29,7 +29,7 @@
         .week-table { width: 100%; border-collapse: collapse; background: #111; border-radius: 15px; overflow: hidden; }
         .week-table td { padding: 12px; border-bottom: 1px solid #222; text-align: center; }
         .today { background: var(--iron-gold) !important; color: black !important; font-weight: 900; }
-        .footer { text-align: center; padding: 30px; color: #555; font-size: 0.8rem; }
+        .footer { text-align: center; padding: 30px; color: #777; font-size: 0.85rem; border-top: 1px solid #222; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -44,7 +44,7 @@
     </div>
 
     <header>
-        <h1 id="welcome-msg">IRON YOUSSEF PRO</h1>
+        <h1 id="welcome-msg">يوسف العدوي</h1>
         <p style="color:var(--iron-gold);">جاهز للتحدي؟ 💪</p>
     </header>
 
@@ -84,11 +84,13 @@
             <tr id="d6"><td>السبت</td><td>راحة 🌴</td></tr>
         </table>
 
-        <div class="footer">تطوير الكابتن يوسف أحمد العدوي © 2026</div>
+        <div class="footer">
+            تطوير يوسف أحمد العدوي © 2026<br>
+            <small>"I'm a dreamer. I have to dream and reach for the stars." - Mike Tyson</small>
+        </div>
     </div>
 
     <script>
-        // كود الاسم
         function saveName() {
             const name = document.getElementById('user-name-input').value;
             if(name) {
@@ -100,7 +102,6 @@
             }
         }
 
-        // إخفاء النافذة لو الاسم متسجل قبل كدة
         window.onload = () => {
             const savedName = localStorage.getItem('coachName');
             if(savedName) {
@@ -124,7 +125,6 @@
                 if (s <= 0) {
                     clearInterval(t);
                     const name = localStorage.getItem('coachName') || "بطل";
-                    // تنبيه صوتي بسيط
                     const audio = new AudioContext();
                     const osc = audio.createOscillator();
                     osc.connect(audio.destination);
