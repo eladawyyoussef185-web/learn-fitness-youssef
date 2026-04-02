@@ -3,98 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IRON YOUSSEF | TYSON MODE</title>
+    <title>IRON YOUSSEF | PRO TRAINER</title>
     <style>
-        :root { --tyson-red: #d32f2f; --iron-gold: #ffc107; --dark-void: #0a0a0a; --card-grey: #1a1a1a; }
-        body { background-color: var(--dark-void); color: white; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; }
+        :root { --tyson-red: #ff3131; --iron-gold: #ffde59; --dark-bg: #0a0a0a; --card-bg: #1a1a1a; }
+        body { background-color: var(--dark-bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
         .container { max-width: 500px; margin: auto; padding: 15px; }
         
-        /* Header */
-        header { background: linear-gradient(180deg, #000, var(--tyson-red)); padding: 50px 20px; border-radius: 0 0 40px 40px; text-align: center; border-bottom: 5px solid var(--iron-gold); }
-        h1 { margin: 0; font-size: 2.2rem; letter-spacing: 2px; text-shadow: 3px 3px 5px black; }
+        header { background: linear-gradient(180deg, #000, var(--tyson-red)); padding: 40px 20px; border-radius: 0 0 35px 35px; text-align: center; border-bottom: 4px solid var(--iron-gold); }
         
-        /* Timer Area */
-        .timer-zone { background: var(--card-grey); padding: 20px; border-radius: 20px; margin: 25px 0; text-align: center; border: 1px solid var(--iron-gold); box-shadow: 0 0 15px rgba(255, 193, 7, 0.1); }
-        #timer-val { font-size: 3rem; font-weight: 900; color: var(--iron-gold); display: block; margin-bottom: 10px; }
-        .btn-start { background: var(--tyson-red); color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-start:active { transform: scale(0.9); }
+        /* Timer Zone */
+        .timer-zone { background: var(--card-bg); padding: 20px; border-radius: 20px; margin: 20px 0; text-align: center; border: 1px solid var(--iron-gold); }
+        #timer-val { font-size: 3rem; font-weight: 900; color: var(--iron-gold); display: block; }
+        .btn-start { background: var(--tyson-red); color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 100%; }
 
         /* Workout Cards */
-        .category-title { color: var(--iron-gold); font-size: 1.5rem; margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; }
-        .exercise-card { background: var(--card-grey); padding: 18px; border-radius: 15px; margin-bottom: 15px; border-right: 6px solid var(--tyson-red); }
-        .ex-header { display: flex; justify-content: space-between; align-items: flex-start; }
-        .ex-name { font-size: 1.1rem; font-weight: bold; color: #eee; }
-        .ex-sets { color: var(--tyson-red); font-weight: bold; font-size: 0.9rem; margin-top: 5px; display: block; }
-        .check-box { width: 25px; height: 25px; accent-color: var(--iron-gold); cursor: pointer; }
+        .category-title { color: var(--iron-gold); font-size: 1.4rem; margin: 30px 0 15px; border-right: 4px solid var(--tyson-red); padding-right: 10px; }
+        .exercise-card { background: var(--card-bg); padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #333; }
+        .ex-header { display: flex; justify-content: space-between; align-items: center; }
+        .ex-info { flex-grow: 1; }
+        .ex-name { font-size: 1.1rem; font-weight: bold; color: #fff; }
+        .ex-sets { color: var(--tyson-red); font-size: 0.9rem; font-weight: bold; }
+        
+        /* Video Button */
+        .btn-video { background: #333; color: var(--iron-gold); border: 1px solid var(--iron-gold); padding: 5px 12px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; margin-top: 10px; display: inline-block; text-decoration: none; }
+        .btn-video:hover { background: var(--iron-gold); color: black; }
 
-        /* Schedule */
-        .week-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #111; border-radius: 15px; overflow: hidden; border: 1px solid #333; }
-        .week-table td { padding: 15px; text-align: center; border-bottom: 1px solid #222; }
+        .week-table { width: 100%; border-collapse: collapse; background: #111; border-radius: 15px; overflow: hidden; }
+        .week-table td { padding: 12px; border-bottom: 1px solid #222; text-align: center; }
         .today { background: var(--iron-gold) !important; color: black !important; font-weight: 900; }
-
-        .footer { text-align: center; padding: 40px; color: #555; font-size: 0.8rem; letter-spacing: 1px; }
+        .footer { text-align: center; padding: 30px; color: #555; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>IRON YOUSSEF</h1>
-        <p style="color:var(--iron-gold); font-weight:bold; margin-top:10px;">نظام "مايك تايسون" للوحوش 💪🥊</p>
+        <h1>IRON YOUSSEF PRO</h1>
+        <p style="color:var(--iron-gold);">روتين الوحوش مع شرح الفيديو 🥊</p>
     </header>
 
     <div class="container">
         
         <div class="timer-zone">
-            <small style="color:#aaa;">وقت الراحة المحاربين</small>
+            <small>وقت الراحة (محاربين)</small>
             <span id="timer-val">00:45</span>
-            <button class="btn-start" onclick="runTimer()">ابدأ الراحة (45 ثانية)</button>
+            <button class="btn-start" onclick="runTimer()">ابدأ الراحة (45 ثانية) 🔔</button>
         </div>
 
-        <h2 class="category-title">🥊 روتين القوة (Bodyweight)</h2>
+        <h2 class="category-title">🥊 تمارين القوة والتحمل</h2>
         
         <div class="exercise-card">
             <div class="ex-header">
-                <div>
-                    <span class="ex-name">تمرين الضغط (Push-ups)</span>
+                <div class="ex-info">
+                    <span class="ex-name">تمرين الضغط (Push-ups)</span><br>
                     <span class="ex-sets">10 مجموعات × 20-50 عدة</span>
                 </div>
-                <input type="checkbox" class="check-box">
+                <input type="checkbox" style="width:22px; height:22px; accent-color:var(--iron-gold);">
             </div>
+            <a href="https://www.youtube.com/watch?v=IODxDxX7oi4" target="_blank" class="btn-video">🎥 شاهد شرح التمرين</a>
         </div>
 
         <div class="exercise-card">
             <div class="ex-header">
-                <div>
-                    <span class="ex-name">تمرين المتوازي (Dips)</span>
+                <div class="ex-info">
+                    <span class="ex-name">تمرين المتوازي (Dips)</span><br>
                     <span class="ex-sets">5 مجموعات × 20 عدة</span>
                 </div>
-                <input type="checkbox" class="check-box">
+                <input type="checkbox" style="width:22px; height:22px; accent-color:var(--iron-gold);">
             </div>
+            <a href="https://www.youtube.com/watch?v=2z8JmcrW-As" target="_blank" class="btn-video">🎥 شاهد شرح التمرين</a>
         </div>
 
-        <h2 class="category-title">⛓️ روتين الحديد والرقبة</h2>
+        <h2 class="category-title">⛓️ الرقبة والترابيس (تايسون ستايل)</h2>
         
         <div class="exercise-card">
             <div class="ex-header">
-                <div>
-                    <span class="ex-name">تمرين الرقبة (Neck Bridge)</span>
-                    <span class="ex-sets">3 مجموعات × 1 دقيقة تحمل</span>
+                <div class="ex-info">
+                    <span class="ex-name">تمرين الرقبة (Neck Bridge)</span><br>
+                    <span class="ex-sets">3 مجموعات × 1 دقيقة</span>
                 </div>
-                <input type="checkbox" class="check-box">
+                <input type="checkbox" style="width:22px; height:22px; accent-color:var(--iron-gold);">
             </div>
+            <a href="https://www.youtube.com/watch?v=uD9lUvE83rU" target="_blank" class="btn-video">🎥 فيديو ترويجي للشرح</a>
         </div>
 
-        <div class="exercise-card">
-            <div class="ex-header">
-                <div>
-                    <span class="ex-name">شراغز بالأوزان (Dumbbell Shrugs)</span>
-                    <span class="ex-sets">4 مجموعات × 15 عدة (للترابيس)</span>
-                </div>
-                <input type="checkbox" class="check-box">
-            </div>
-        </div>
-
-        <h2 class="category-title">📅 جدول التدريب</h2>
+        <h2 class="category-title">📅 الجدول الأسبوعي</h2>
         <table class="week-table">
             <tr id="d0"><td>الأحد</td><td>تحمل + ملاكمة</td></tr>
             <tr id="d1"><td>الاثنين</td><td>حديد (قوة انفجارية)</td></tr>
@@ -105,19 +97,14 @@
             <tr id="d6"><td>السبت</td><td>راحة 🌴</td></tr>
         </table>
 
-        <div class="footer">
-            DESIGNED BY YOUSSEF AHMED ELADAWY<br>
-            "I'm a dreamer. I have to dream and reach for the stars." - Mike Tyson
-        </div>
+        <div class="footer">تطوير الكابتن يوسف أحمد العدوي © 2026</div>
     </div>
 
     <script>
-        // تحديد اليوم
         const day = new Date().getDay();
         const row = document.getElementById('d' + day);
         if(row) row.classList.add('today');
 
-        // كود التايمر (45 ثانية لتايسون)
         let t;
         function runTimer() {
             clearInterval(t);
@@ -128,6 +115,12 @@
                 display.innerText = `00:${sec < 10 ? '0' : ''}${sec}`;
                 if (s <= 0) {
                     clearInterval(t);
+                    // صوت تنبيه (Beep)
+                    const audio = new AudioContext();
+                    const osc = audio.createOscillator();
+                    osc.connect(audio.destination);
+                    osc.start();
+                    osc.stop(audio.currentTime + 0.5);
                     alert("انتهى الوقت! ارجع كمل تمرين يا وحش! 🥊");
                     display.innerText = "00:45";
                 }
