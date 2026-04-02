@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>YOUSSEF FITNESS</title>
+    <style>
+        body { background: #1a1a1a; color: white; text-align: center; font-family: sans-serif; padding: 20px; }
+        .box { background: #262626; border-right: 5px solid red; padding: 15px; margin: 10px; border-radius: 10px; }
+        table { width: 100%; border-collapse: collapse; background: #333; }
+        th, td { border: 1px solid #444; padding: 10px; }
+        th { background: red; }
+        .active-day { background: gold !important; color: black; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1 style="color:red;">YOUSSEF FITNESS 💪</h1>
+    <div class="box">
+        <h3>تمارين النهاردة:</h3>
+        <p>ادخل على الجدول وشوف يومك إيه!</p>
+    </div>
+    <table>
+        <tr style="background:red;"><th>اليوم</th><th>التمرين</th></tr>
+        <tr id="d0"><td>الأحد</td><td>صدر</td></tr>
+        <tr id="d1"><td>الاثنين</td><td>ظهر</td></tr>
+        <tr id="d2"><td>الثلاثاء</td><td>راحة</td></tr>
+        <tr id="d3"><td>الأربعاء</td><td>أرجل</td></tr>
+        <tr id="d4"><td>الخميس</td><td>كتف (يومك النهاردة!)</td></tr>
+        <tr id="d5"><td>الجمعة</td><td>فول بودي</td></tr>
+        <tr id="d6"><td>السبت</td><td>راحة</td></tr>
+    </table>
+    <script>
+        var day = new Date().getDay();
+        document.getElementById('d' + day).className = 'active-day';
+    </script>
+</body>
+</html>
