@@ -2,209 +2,191 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>YOUSSEF ELADAWY | PREMIUM FITNESS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOUSSEF FITNESS | ANIMATED PRO</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* نظام الألوان الاحترافي - أسود وأحمر عدواني */
-        :root { --pro-red: #ff0000; --deep-black: #000000; --card-dark: #111111; --gold: #ffd700; --pure-white: #ffffff; }
-        body { background-color: var(--deep-black); color: var(--pure-white); font-family: 'Segoe UI', 'Roboto', sans-serif; margin: 0; padding: 0; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-        .container { max-width: 500px; margin: auto; padding: 10px; padding-bottom: 30px; }
+        :root { --pro-red: #ff0000; --deep-black: #050505; --card-bg: #111; --gold: #ffd700; }
+        body { background: var(--deep-black); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
         
-        /* شاشة دخول التطبيق السينمائية (Splash Screen) */
-        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, var(--pro-red) 0%, var(--deep-black) 80%); display: flex; justify-content: center; align-items: center; z-index: 2000; transition: 0.8s ease-in-out; }
-        .login-card { background: rgba(10, 10, 10, 0.95); padding: 50px 20px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.1); text-align: center; width: 85%; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8); }
-        .login-card i { font-size: 5rem; color: var(--pure-white); margin-bottom: 20px; animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .app-input { width: 90%; padding: 15px; border-radius: 12px; border: 1px solid #333; background: #000; color: #fff; text-align: center; font-size: 1.1rem; margin-bottom: 25px; outline: none; transition: 0.3s; }
-        .app-input:focus { border-color: var(--pro-red); box-shadow: 0 0 10px rgba(255, 0, 0, 0.3); }
+        /* شاشة الدخول */
+        #splash { position: fixed; top:0; left:0; width:100%; height:100%; background:#000; display:flex; justify-content:center; align-items:center; z-index:3000; transition:0.8s; }
+        .login-box { background:var(--card-bg); padding:40px 20px; border-radius:30px; border:2px solid var(--pro-red); text-align:center; width:85%; box-shadow: 0 0 30px rgba(255,0,0,0.3); }
         
-        /* الهيدر المحترف (App Header) */
-        header { background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(20,20,20,0.8) 100%); padding: 60px 20px; text-align: center; border-bottom: 5px solid var(--pro-red); position: relative; }
-        header i { font-size: 4rem; color: var(--pro-red); margin-bottom: 15px; text-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
-        header h1 { margin: 0; font-size: 2.5rem; font-weight: 900; letter-spacing: 1px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+        header { background: linear-gradient(180deg, #000, #300); padding: 50px 20px; text-align: center; border-bottom: 5px solid var(--pro-red); }
+        .container { max-width: 500px; margin: auto; padding: 15px; }
+
+        /* كروت التمارين مع "المدرب الصغير" */
+        .ex-card { 
+            background: var(--card-bg); 
+            padding: 20px; 
+            border-radius: 25px; 
+            margin: 20px 0; 
+            border: 1px solid #222; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .ex-card:hover { transform: scale(1.02); border-color: var(--pro-red); box-shadow: 0 5px 15px rgba(255,0,0,0.2); }
         
-        /* منطقة التايمر المحترف */
-        .timer-zone { background: var(--card-dark); padding: 25px; border-radius: 25px; margin: 25px 0; text-align: center; border: 1px solid rgba(255, 0, 0, 0.2); box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5); }
-        #timer-val { font-size: 4rem; font-weight: 900; color: var(--pro-red); display: block; font-family: 'Courier New', monospace; letter-spacing: -2px; }
-        .btn-start { background: linear-gradient(180deg, #ff4444, var(--pro-red)); color: white; border: none; padding: 18px; border-radius: 50px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4); }
-        .btn-start:active { transform: translateY(2px); box-shadow: 0 2px 10px rgba(255, 0, 0, 0.2); }
+        /* مكان الشخصية الصغيرة (The Mini Coach) */
+        .mini-coach {
+            width: 80px;
+            height: 80px;
+            background: #1a1a1a;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #333;
+        }
+        .mini-coach img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 5px var(--pro-red));
+        }
 
-        /* كروت مكتبة الفيديوهات المنظمة */
-        .category-title { color: var(--pro-red); font-size: 1.6rem; margin: 40px 0 15px; font-weight: 900; text-transform: uppercase; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #222; padding-bottom: 5px; }
-        .video-card { background: var(--card-dark); padding: 20px; border-radius: 20px; margin-bottom: 25px; border: 1px solid #1a1a1a; transition: 0.3s; position: relative; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .video-card:hover { border-color: rgba(255, 0, 0, 0.5); transform: translateY(-3px); }
-        .video-card:hover i { transform: scale(1.2); color: var(--pure-white); }
-        .ex-name { font-size: 1.2rem; font-weight: bold; color: var(--pure-white); display: block; }
-        .video-card i { font-size: 2rem; color: var(--pro-red); transition: 0.3s; }
-        .video-card a { position: absolute; top:0; left:0; width:100%; height:100%; text-decoration: none; }
+        .ex-info { flex: 1; margin-right: 15px; }
+        .ex-name { font-size: 1.2rem; font-weight: 900; display: block; color: #fff; }
+        .ex-tag { font-size: 0.8rem; color: var(--pro-red); font-weight: bold; }
 
-        /* نظام الدعم الذكي عبر الواتساب */
-        .support-box { background: var(--card-dark); padding: 25px; border-radius: 25px; margin: 40px 0; border: 1px solid rgba(255, 255, 255, 0.1); position: relative; }
-        .support-box h3 { margin-top: 0; color: var(--pure-white); font-weight: 900; display: flex; align-items: center; gap: 10px; }
-        .support-box i.support-icon { font-size: 2.5rem; color: #25d366; position: absolute; top: 15px; left: 15px; animation: pulseWa 2s infinite; }
-        .support-input { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #333; background: #000; color: #fff; font-size: 1rem; margin-bottom: 15px; box-sizing: border-box; resize: none; }
-        .btn-wa { background: #25d366; color: white; border: none; padding: 15px; border-radius: 50px; font-weight: bold; width: 100%; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; transition: 0.3s; }
-        .btn-wa:hover { background: #1da851; transform: scale(1.03); }
-        @keyframes pulseWa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        .btn-video { color: var(--gold); text-decoration: none; font-size: 1.5rem; transition: 0.3s; }
+        .btn-video:hover { color: #fff; transform: rotate(15deg); }
 
-        /* لوحة الإدمن المخفية الحمراء */
-        #admin-panel { display: none; background: #200; padding: 20px; border-radius: 20px; margin-top: 30px; border: 2px solid var(--pro-red); box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
-        .admin-badge { background: var(--pro-red); color: white; padding: 5px 15px; border-radius: 8px; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        /* تايمر الراحة */
+        .timer-box { background: #1a1a1a; padding: 25px; border-radius: 30px; text-align: center; margin: 20px 0; border: 1px dashed var(--pro-red); }
+        #timer-display { font-size: 4rem; font-weight: 900; color: var(--pro-red); font-family: monospace; }
+        .btn-red { background: var(--pro-red); color: #fff; border: none; padding: 15px 30px; border-radius: 50px; font-weight: 900; cursor: pointer; width: 100%; font-size: 1.2rem; margin-top: 10px; }
 
-        /* الجدول الأسبوعي الفخم */
-        .week-table { width: 100%; border-collapse: collapse; background: #0a0a0a; border-radius: 20px; overflow: hidden; margin: 25px 0; border: 1px solid #1a1a1a; }
-        .week-table td { padding: 18px; border-bottom: 1px solid #111; text-align: center; font-size: 0.95rem; }
-        .today { background: rgba(255, 0, 0, 0.2) !important; color: white !important; font-weight: bold; border-right: 4px solid var(--pro-red); }
-
-        /* كروت التواصل */
-        .social-row { display: flex; gap: 15px; margin: 30px 0; }
-        .social-card { background: var(--card-dark); padding: 20px; border-radius: 20px; border: 1px solid #1a1a1a; flex: 1; text-align: center; text-decoration: none; color: var(--pure-white); transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        .social-card:hover { border-color: #333; transform: scale(1.05); }
-        .social-card i { font-size: 2.5rem; }
-
-        .footer { text-align: center; padding: 40px 20px; color: #555; font-size: 0.85rem; border-top: 1px solid #111; line-height: 1.6; }
+        /* الدعم واللوحة */
+        .support-card { background: #111; padding: 20px; border-radius: 25px; border: 1px solid #333; margin-top: 40px; }
+        #admin-view { display: none; background: #200; padding: 15px; border-radius: 20px; margin-top: 20px; border: 2px solid var(--pro-red); }
     </style>
 </head>
 <body>
 
     <div id="splash">
-        <div class="login-card">
-            <i class="fas fa-heartbeat"></i>
-            <h1 style="color:var(--pure-white); margin:0 0 10px; font-size:2rem; font-weight:900;">YOUSSEF ELADAWY</h1>
-            <p style="color:#aaa; margin:0 0 30px; font-size:1rem;">ادخل عالم الأبطال</p>
-            <input type="text" id="u-name" class="app-input" placeholder="اسمك الكامل" required>
-            <button class="btn-start" onclick="saveUserData()">ابدأ التدريب الآن 🥊</button>
+        <div class="login-box">
+            <i class="fas fa-user-ninja" style="font-size:4rem; color:#fff; margin-bottom:20px;"></i>
+            <h1 style="margin:0; font-size:1.8rem;">YOUSSEF FITNESS</h1>
+            <p style="color:#777; margin-bottom:25px;">جاهز للتحدي يا بطل؟</p>
+            <input type="text" id="u-name" style="width:90%; padding:15px; border-radius:12px; border:none; text-align:center; font-size:1.1rem;" placeholder="اكتب اسمك">
+            <button class="btn-red" onclick="enterApp()">ادخل الحلبة 🥊</button>
         </div>
     </div>
 
     <header>
-        <i class="fas fa-dumbbell"></i>
-        <h1 id="welcome-msg">يوسف العدوي</h1>
-        <p style="color:var(--pro-red); font-weight:bold; letter-spacing:1px; margin-top:10px;">PRO TRAINING APP V5</p>
+        <h1 id="hi-user">كوتش يوسف</h1>
+        <p style="color:var(--pro-red); font-weight:bold; letter-spacing:2px;">PREMIUM ANIMATED V6</p>
     </header>
 
     <div class="container">
         
-        <div class="timer-zone">
-            <small style="color:#777; font-weight:bold; text-transform:uppercase; letter-spacing:1px;">REST TIMER</small>
-            <span id="timer-val">00:45</span>
-            <button class="btn-start" onclick="runProTimer()">ابدأ الراحة 🔔</button>
+        <div class="timer-box">
+            <small style="color:#777;">REST TIME</small>
+            <div id="timer-display">00:45</div>
+            <button class="btn-red" onclick="startRest()">استراحة محارب 🔔</button>
         </div>
 
-        <h2 class="category-title"><i class="fab fa-youtube"></i> مكتبة الفيديو (الشرح)</h2>
-        
-        <div class="video-card"><div><span class="ex-name">1. تمرين الضغط (Chest)</span><br><small style="color:#aaa;">شرح الأداء الصحيح</small></div><i class="fas fa-play-circle"></i><a href="https://www.youtube.com/watch?v=IODxDxX7oi4" target="_blank"></a></div>
-        <div class="video-card"><div><span class="ex-name">2. تمرين المتوازي (Triceps)</span><br><small style="color:#aaa;">تضخيم عضلة التراي</small></div><i class="fas fa-play-circle"></i><a href="https://www.youtube.com/watch?v=2z8JmcrW-As" target="_blank"></a></div>
-        <div class="video-card"><div><span class="ex-name">3. تمرين الرقبة (Neck)</span><br><small style="color:#aaa;">تمرين مايك تايسون الأسطوري</small></div><i class="fas fa-play-circle"></i><a href="https://www.youtube.com/watch?v=uD9lUvE83rU" target="_blank"></a></div>
-        <div class="video-card"><div><span class="ex-name">4. تمرين الكتف (Shoulders)</span><br><small style="color:#aaa;">تضخيم عضلة الترابيس والكتف</small></div><i class="fas fa-play-circle"></i><a href="https://www.youtube.com/watch?v=68tD2z7Lp0Y" target="_blank"></a></div>
-        <div class="video-card"><div><span class="ex-name">5. تمرين الظهر (Back)</span><br><small style="color:#aaa;">عضلة المجنص وتعرّيج الظهر</small></div><i class="fas fa-play-circle"></i><a href="https://www.youtube.com/watch?v=eGo4IYlbE5g" target="_blank"></a></div>
+        <h2 style="color:var(--pro-red); border-right:4px solid #fff; padding-right:10px; margin:30px 0 10px;">التمارين والمدرب 🏃‍♂️</h2>
 
-        <h2 class="category-title"><i class="fas fa-calendar-day"></i> الجدول الأسبوعي (يومك اليوم)</h2>
-        <table class="week-table">
-            <tr id="d0"><td>الأحد</td><td>تحمل + ملاكمة 🥊</td></tr>
-            <tr id="d1"><td>الاثنين</td><td>حديد 💪</td></tr>
-            <tr id="d2"><td>الثلاثاء</td><td>راحة 🛌</td></tr>
-            <tr id="d3"><td>الأربعاء</td><td>وزن جسم + جري 🏃</td></tr>
-            <tr id="d4"><td>الخميس</td><td>أكتاف + رقبة</td></tr>
-            <tr id="d5"><td>الجمعة</td><td>فول بودي</td></tr>
-            <tr id="d6"><td>السبت</td><td>راحة 🌴</td></tr>
-        </table>
-
-        <div class="support-box">
-            <i class="fab fa-whatsapp support-icon"></i>
-            <h3>الدعم الفني المباشر</h3>
-            <p style="color:#aaa; font-size:0.9rem; margin:10px 0 20px;">اكتب سؤالك وهيتم الرد عليك فوراً من الكوتش يوسف</p>
-            <textarea id="msg-text" class="support-input" rows="3" placeholder="اكتب سؤالك هنا يا بطل..."></textarea>
-            <button onclick="sendMsgToYoussef()" class="btn-wa"><i class="fab fa-whatsapp"></i> إرسال للكوتش يوسف</button>
+        <div class="ex-card">
+            <div class="mini-coach">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKVUn7iM8FMEU24/giphy.gif" alt="pushup">
+            </div>
+            <div class="ex-info">
+                <span class="ex-name">تمرين الضغط</span>
+                <span class="ex-tag">صدر + تراي</span>
+            </div>
+            <a href="https://www.youtube.com/watch?v=IODxDxX7oi4" target="_blank" class="btn-video"><i class="fab fa-youtube"></i></a>
         </div>
 
-        <div id="admin-panel">
-            <span class="admin-badge">ADMIN CONTROL</span>
-            <p style="margin:15px 0; color:#eee; font-size:0.9rem;">أهلاً يا يوسف! دي لوحة التحكم الخاصة بك.</p>
-            <button onclick="alert('جاري ربط قاعدة البيانات للرد على المشتركين مباشرة!')" class="btn-start" style="font-size:0.8rem; padding:10px 30px; background:#fff; color:#000; box-shadow:none;">مشاهدة إحصائيات المشتركين</button>
+        <div class="ex-card">
+            <div class="mini-coach">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpxfO8S7jX8A/giphy.gif" alt="dips">
+            </div>
+            <div class="ex-info">
+                <span class="ex-name">تمرين المتوازي</span>
+                <span class="ex-tag">ترايسيبس قوي</span>
+            </div>
+            <a href="https://www.youtube.com/watch?v=2z8JmcrW-As" target="_blank" class="btn-video"><i class="fab fa-youtube"></i></a>
         </div>
 
-        <div class="social-row">
-            <a href="https://wa.me/201551853099" target="_blank" class="social-card" style="color:#25d366; border-color:#25d366;"><i class="fab fa-whatsapp"></i>واتساب</a>
-            <a href="https://www.facebook.com/jou.eladawy/" target="_blank" class="social-card" style="color:#1877f2; border-color:#1877f2;"><i class="fab fa-facebook-f"></i>فيسبوك</a>
+        <div class="ex-card">
+            <div class="mini-coach">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKuylS3E8f2z0iI/giphy.gif" alt="neck">
+            </div>
+            <div class="ex-info">
+                <span class="ex-name">تمارين الرقبة</span>
+                <span class="ex-tag">ستايل مايك تايسون</span>
+            </div>
+            <a href="https://www.youtube.com/watch?v=uD9lUvE83rU" target="_blank" class="btn-video"><i class="fab fa-youtube"></i></a>
         </div>
 
-        <div class="footer">
+        <div class="support-card">
+            <h3 style="margin:0;"><i class="fab fa-whatsapp" style="color:#25d366;"></i> الدعم الفني المباشر</h3>
+            <p style="color:#666; font-size:0.8rem; margin:10px 0;">تواصل مع الكوتش يوسف مباشرة</p>
+            <textarea id="msg-box" style="width:100%; padding:12px; border-radius:15px; background:#000; color:#fff; border:1px solid #333;" rows="3" placeholder="اسأل عن أي حاجة..."></textarea>
+            <button class="btn-red" style="background:#25d366;" onclick="contactCoach()">إرسال واتساب 🚀</button>
+            
+            <div id="admin-view">
+                <p style="margin:0; font-weight:bold; color:var(--pro-red);">ADMIN PANEL | يوسف العدوي</p>
+                <small>أهلاً بك يا بطل في لوحة التحكم.</small>
+            </div>
+        </div>
+
+        <div style="text-align:center; padding:40px; color:#444; font-size:0.8rem;">
             تطوير يوسف أحمد العدوي © 2026<br>
-            PREMIUM FITNESS APP | VERSION 5.0<br>
-            <small>Built like a tank. Built for professionals.</small>
+            <a href="https://www.facebook.com/jou.eladawy/" target="_blank" style="color:#1877f2; text-decoration:none;">Facebook Profile</a>
         </div>
     </div>
 
     <script>
-        // نظام دخول المستخدم الاحترافي
-        function saveUserData() {
+        function enterApp() {
             const name = document.getElementById('u-name').value;
             if(name) {
-                localStorage.setItem('fit_name_v5', name);
-                document.getElementById('splash').style.opacity = '0';
-                setTimeout(() => document.getElementById('splash').style.display = 'none', 800);
-                document.getElementById('welcome-msg').innerText = "يا هلا يا كوتش " + name;
-                
-                // تفعيل لوحة الإدمن لو دخلت باسمك
-                if(name.toLowerCase() === 'admin_youssef') {
-                    document.getElementById('admin-panel').style.display = 'block';
-                }
-            } else { alert("اكتب اسمك يا بطل عشان نبدأ! 🔥"); }
+                localStorage.setItem('fit_name_v6', name);
+                document.getElementById('splash').style.transform = 'translateY(-100%)';
+                document.getElementById('hi-user').innerText = "كوتش " + name;
+                if(name.toLowerCase() === 'admin_youssef') document.getElementById('admin-view').style.display = 'block';
+            } else { alert("اكتب اسمك يا بطل!"); }
         }
 
-        // تشغيل الجدول والتحقق من المستخدم
-        window.onload = () => {
-            const savedName = localStorage.getItem('fit_name_v5');
-            const day = new Date().getDay();
-            const row = document.getElementById('d' + day);
-            
-            if(savedName) {
-                document.getElementById('splash').style.display = 'none';
-                document.getElementById('welcome-msg').innerText = "يا هلا يا كوتش " + savedName;
-                if(savedName.toLowerCase() === 'admin_youssef') document.getElementById('admin-panel').style.display = 'block';
-            }
-            if(row) row.classList.add('today');
-        };
-
-        // نظام الدعم عبر الواتساب المباشر
-        function sendMsgToYoussef() {
-            const msg = document.getElementById('msg-text').value;
-            const user = localStorage.getItem('fit_name_v5') || "مشترك";
+        function contactCoach() {
+            const msg = document.getElementById('msg-box').value;
+            const name = localStorage.getItem('fit_name_v6') || "مشترك";
             if(msg) {
-                // الربط المباشر مع واتساب يوسف
-                const whatsappUrl = `https://wa.me/201551853099?text=رسالة من تطبيق اللياقة Premium%0Aالمشترك: ${user}%0Aالسؤال: ${msg}`;
-                window.open(whatsappUrl, '_blank');
-            } else { alert("اكتب رسالتك أولاً يا بطل!"); }
+                const url = `https://wa.me/201551853099?text=الاسم: ${name}%0Aالسؤال: ${msg}`;
+                window.open(url, '_blank');
+            }
         }
 
-        // تايمر المحترفين (45 ثانية)
-        let timer;
-        function runProTimer() {
-            clearInterval(timer);
+        function startRest() {
             let s = 45;
-            const display = document.getElementById('timer-val');
-            timer = setInterval(() => {
-                let sec = s % 60;
-                display.innerText = `00:${sec < 10 ? '0' : ''}${sec}`;
-                if (s <= 0) {
-                    clearInterval(timer);
-                    const name = localStorage.getItem('fit_name_v5') || "بطل";
-                    
-                    // تنبيه صوتي بسيط
-                    const aCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    const osc = aCtx.createOscillator();
-                    osc.connect(aCtx.destination);
-                    osc.start();
-                    osc.stop(aCtx.currentTime + 0.5);
-                    
-                    alert("يللا يا كوتش " + name + " للتمرين اللي بعده! 🥊");
-                    display.innerText = "00:45";
-                }
+            const d = document.getElementById('timer-display');
+            const t = setInterval(() => {
                 s--;
+                d.innerText = `00:${s < 10 ? '0' : ''}${s}`;
+                if(s <= 0) {
+                    clearInterval(t);
+                    alert("انتهى وقت الراحة! يللا يا وحش 💪");
+                    d.innerText = "00:45";
+                }
             }, 1000);
         }
+
+        window.onload = () => {
+            const saved = localStorage.getItem('fit_name_v6');
+            if(saved) {
+                document.getElementById('splash').style.display = 'none';
+                document.getElementById('hi-user').innerText = "كوتش " + saved;
+                if(saved.toLowerCase() === 'admin_youssef') document.getElementById('admin-view').style.display = 'block';
+            }
+        };
     </script>
 </body>
 </html>
