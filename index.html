@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YOUSSEF FITNESS | SMART SCHEDULE</title>
+    <title>YOUSSEF FITNESS | PRO SYSTEM</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --main: #ff0000; --bg: #000; --card: #121212; }
+        :root { --main: #ff0000; --bg: #000; --card: #121212; --disabled: #333; }
         body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 50px; }
         .container { max-width: 500px; margin: auto; padding: 20px; }
         
@@ -14,12 +14,12 @@
         .day-badge { background: var(--main); color: #fff; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
 
         /* كارت التمرين اليومي */
-        .workout-box { background: var(--card); border-radius: 25px; padding: 20px; margin: 20px 0; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .workout-box { background: var(--card); border-radius: 25px; padding: 20px; margin: 20px 0; border: 1px solid #333; }
         .ex-item { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid #222; }
         .ex-item:last-child { border: none; }
         
-        .coach-img { width: 70px; height: 70px; background: #fff; border-radius: 15px; overflow: hidden; border: 2px solid var(--main); }
-        .coach-img img { width: 100%; height: 100%; object-fit: cover; }
+        .coach-img { width: 80px; height: 80px; background: #fff; border-radius: 15px; overflow: hidden; border: 2px solid var(--main); display: flex; align-items: center; justify-content: center;}
+        .coach-img img { width: 90%; height: 90%; object-fit: contain; }
 
         .ex-info { flex: 1; }
         .ex-info b { font-size: 1.1rem; display: block; }
@@ -27,21 +27,25 @@
 
         .play-btn { color: var(--main); font-size: 1.8rem; text-decoration: none; }
 
-        /* التايمر */
-        .timer-sec { text-align: center; background: #1a1a1a; padding: 20px; border-radius: 20px; margin: 20px 0; border: 1px dashed var(--main); }
-        #timer-val { font-size: 3.5rem; font-weight: 900; color: var(--main); font-family: monospace; }
-        .btn-go { background: var(--main); color: #fff; border: none; padding: 15px; border-radius: 50px; width: 100%; font-weight: 900; cursor: pointer; }
+        /* التايمر المضاد للغش */
+        .timer-sec { text-align: center; background: #1a1a1a; padding: 25px; border-radius: 20px; margin: 20px 0; border: 2px solid var(--main); position: relative;}
+        #timer-val { font-size: 3.5rem; font-weight: 900; color: var(--main); font-family: 'Courier New', Courier, monospace; }
+        
+        .btn-go { 
+            background: var(--main); color: #fff; border: none; padding: 15px; border-radius: 50px; 
+            width: 100%; font-weight: 900; cursor: pointer; transition: 0.3s;
+        }
+        .btn-go:disabled { background: var(--disabled); color: #666; cursor: not-allowed; transform: scale(0.98); }
 
-        /* التنبيه بيوم الراحة */
         .rest-day-msg { text-align: center; padding: 40px 20px; }
-        .rest-day-msg i { font-size: 4rem; color: #555; margin-bottom: 20px; }
+        .rest-day-msg i { font-size: 4rem; color: var(--main); margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <header>
         <div id="current-day-name" class="day-badge">تحميل...</div>
-        <h1 style="margin: 10px 0 5px;">تمرين اليوم يا بطل 🥊</h1>
+        <h1 style="margin: 10px 0 5px;">خطة التدريب 🥊</h1>
         <p id="workout-title" style="color: #aaa; margin: 0;"></p>
     </header>
 
@@ -51,92 +55,89 @@
             </div>
 
         <div class="timer-sec">
-            <small>REST TIMER</small>
+            <small style="letter-spacing: 2px; color: #777;">REST PERIOD</small>
             <div id="timer-val">00:45</div>
-            <button class="btn-go" onclick="startTimer()">ابدأ الراحة 🔔</button>
+            <button id="timer-btn" class="btn-go" onclick="startTimer()">ابدأ الاستراحة 🔔</button>
+            <p id="cheat-msg" style="display:none; color: #555; font-size: 0.7rem; margin-top: 10px;">العداد يعمل.. لا يمكن التلاعب بالوقت!</p>
         </div>
 
         <div class="workout-box" style="border-color: #25d366; text-align: center;">
-            <h3 style="margin-top:0;"><i class="fab fa-whatsapp" style="color:#25d366;"></i> اسأل كوتش يوسف</h3>
-            <textarea id="msg" style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:10px; border-radius:10px;" rows="3" placeholder="عندك سؤال في تمرين النهاردة؟"></textarea>
-            <button class="btn-go" style="background:#25d366; margin-top:10px;" onclick="send()">إرسال الاستفسار 🚀</button>
+            <h4 style="margin:0 0 10px;"><i class="fab fa-whatsapp" style="color:#25d366;"></i> تواصل مع يوسف العدوي</h4>
+            <button class="btn-go" style="background:#25d366;" onclick="window.open('https://wa.me/201551853099')">إرسال استفسار 🚀</button>
         </div>
 
+        <div style="text-align:center; padding:20px; color:#444; font-size:0.8rem;">
+            تطوير يوسف أحمد العدوي © 2026
+        </div>
     </div>
 
     <script>
-        // قاعدة بيانات التمارين لكل يوم
         const schedule = [
             { day: "الأحد", title: "تحمل وملاكمة 🥊", exercises: [
-                { name: "ضرب كيس الملاكمة", target: "كاريو + سرعة", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKVUn7iM8FMEU24/giphy.gif" },
-                { name: "تمارين ضغط سريع", target: "صدر + أكتاف", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKVUn7iM8FMEU24/giphy.gif" }
+                { name: "ضرب كيس الملاكمة", target: "كاريو + سرعة", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/vLp5U8Wq66VBC/giphy.gif" },
+                { name: "تمارين ضغط", target: "صدر + أكتاف", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKVUn7iM8FMEU24/giphy.gif" }
             ]},
-            { day: "الاثنين", title: "تضخيم (حديد) 💪", exercises: [
-                { name: "بنش برس", target: "صدر علوي", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpxfO8S7jX8A/giphy.gif" },
-                { name: "تجديف بالبار", target: "عضلات الظهر", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKuylS3E8f2z0iI/giphy.gif" }
+            { day: "الاثنين", title: "حديد 💪", exercises: [
+                { name: "بنش برس", target: "صدر", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKP9p8fU1yVp1O8/giphy.gif" },
+                { name: "تجديف بالبار", target: "ظهر", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKuylS3E8f2z0iI/giphy.gif" }
             ]},
-            { day: "الثلاثاء", title: "راحة سلبية 🛌", exercises: [] },
+            { day: "الثلاثاء", title: "راحة 🛌", exercises: [] },
             { day: "الأربعاء", title: "وزن الجسم وجري 🏃", exercises: [
                 { name: "عقلة", target: "ظهر + باي", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKVUn7iM8FMEU24/giphy.gif" },
-                { name: "متوازي", target: "ترايسيبس", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpxfO8S7jX8A/giphy.gif" }
+                { name: "متوازي", target: "تراي", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpxfO8S7jX8A/giphy.gif" }
             ]},
-            { day: "الخميس", title: "أكتاف ورقبة (تايسون) 🥊", exercises: [
-                { name: "تمارين الرقبة", target: "قوة التحمل", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKuylS3E8f2z0iI/giphy.gif" },
-                { name: "رفرفة جانبي", target: "تدوير الكتف", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpxfO8S7jX8A/giphy.gif" }
+            { day: "الخميس", title: "أكتاف ورقبة 🥊", exercises: [
+                { name: "تمارين الرقبة", target: "تحمل مايك تايسون", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKuylS3E8f2z0iI/giphy.gif" },
+                { name: "جري", target: "لياقة بدنية", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/l41lTfORfX7L055ks/giphy.gif" }
             ]},
-            { day: "الجمعة", title: "تمرين شامل (Full Body) 🔥", exercises: [
-                { name: "سكوات", target: "رجلين", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKVUn7iM8FMEU24/giphy.gif" },
-                { name: "ضغط", target: "صدر", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKVUn7iM8FMEU24/giphy.gif" }
+            { day: "الجمعة", title: "تمرين شامل 🔥", exercises: [
+                { name: "سكوات", target: "رجلين", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKv6fSgqToTqDqU/giphy.gif" },
+                { name: "تمارين بطن", target: "عضلات البطن", vid: "https://youtube.com", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpxfO8S7jX8A/giphy.gif" }
             ]},
-            { day: "السبت", title: "راحة تامة 🌴", exercises: [] }
+            { day: "السبت", title: "راحة 🌴", exercises: [] }
         ];
 
         window.onload = () => {
-            const now = new Date();
-            const dayIndex = now.getDay(); // 0 للأحد، 1 للاثنين...
-            const todayData = schedule[dayIndex];
-
-            document.getElementById('current-day-name').innerText = todayData.day;
-            document.getElementById('workout-title').innerText = todayData.title;
+            const dayIndex = new Date().getDay();
+            const today = schedule[dayIndex];
+            document.getElementById('current-day-name').innerText = today.day;
+            document.getElementById('workout-title').innerText = today.title;
 
             const list = document.getElementById('workout-list');
-            if(todayData.exercises.length > 0) {
-                todayData.exercises.forEach(ex => {
+            if(today.exercises.length > 0) {
+                today.exercises.forEach(ex => {
                     list.innerHTML += `
                         <div class="ex-item">
                             <div class="coach-img"><img src="${ex.img}"></div>
-                            <div class="ex-info">
-                                <b>${ex.name}</b>
-                                <span>${ex.target}</span>
-                            </div>
+                            <div class="ex-info"><b>${ex.name}</b><span>${ex.target}</span></div>
                             <a href="${ex.vid}" target="_blank" class="play-btn"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    `;
+                        </div>`;
                 });
             } else {
-                list.innerHTML = `
-                    <div class="rest-day-msg">
-                        <i class="fas fa-bed"></i>
-                        <h3>استمتع بالراحة يا بطل!</h3>
-                        <p style="color:#666;">جسمك محتاج وقت عشان يبني العضلات اللي تعبت فيها.</p>
-                    </div>
-                `;
+                list.innerHTML = `<div class="rest-day-msg"><i class="fas fa-couch"></i><h3>استراحة محارب!</h3><p>الراحة جزء من التمرين يا بطل.</p></div>`;
             }
         };
 
         function startTimer() {
+            const btn = document.getElementById('timer-btn');
+            const display = document.getElementById('timer-val');
+            const msg = document.getElementById('cheat-msg');
+            
             let s = 45;
-            const d = document.getElementById('timer-val');
-            const t = setInterval(() => {
-                s--;
-                d.innerText = `00:${s < 10 ? '0' : ''}${s}`;
-                if(s <= 0) { clearInterval(t); alert("انتهى الوقت! 💪"); d.innerText="00:45"; }
-            }, 1000);
-        }
+            btn.disabled = true; // تعطيل الزرار تماماً
+            msg.style.display = 'block';
 
-        function send() {
-            const m = document.getElementById('msg').value;
-            if(m) window.open(`https://wa.me/201551853099?text=سؤال عن تمرين اليوم: ${m}`, '_blank');
+            const timer = setInterval(() => {
+                s--;
+                display.innerText = `00:${s < 10 ? '0' : ''}${s}`;
+                if(s <= 0) {
+                    clearInterval(timer);
+                    display.innerText = "00:45";
+                    btn.disabled = false; // تفعيل الزرار مرة تانية بعد انتهاء الوقت
+                    msg.style.display = 'none';
+                    alert("انتهى وقت الاستراحة! 💪🔥");
+                }
+            }, 1000);
         }
     </script>
 </body>
