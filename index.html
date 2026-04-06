@@ -2,170 +2,268 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YOUSSEF ALADAWY | ELITE SYSTEM V15</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YOUSSEF ELADAWY | THE ELITE SYSTEM</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --main: #ff0000; --bg: #000; --card: #111; --gold: #ffd700; --fb: #1877F2; --wa: #25D366; }
-        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 80px; }
+        /* نظام الألوان الملكي والاحترافي */
+        :root {
+            --primary: #ff0000;
+            --secondary: #121212;
+            --glass: rgba(255, 255, 255, 0.03);
+            --gold: #ffd700;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --facebook: #1877F2;
+            --whatsapp: #25D366;
+        }
+
+        /* تنسيقات أساسية */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { 
+            background-color: #000; color: var(--text-main); 
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+            padding-bottom: 50px; 
+            background-image: radial-gradient(circle at 50% -20%, #300, #000);
+            min-height: 100vh;
+        }
+
+        /* شاشة التحميل الفخمة (Splash) */
+        #splash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .loader-ring { width: 80px; height: 80px; border: 4px solid var(--glass); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* الهيدر الفخم */
+        header { 
+            padding: 50px 20px; text-align: center; 
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); 
+            border-bottom: 3px solid var(--primary); 
+            position: relative;
+        }
+        .badge { background: var(--gold); color: #000; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        header h1 { font-size: 2.2rem; font-weight: 900; margin: 10px 0 0; letter-spacing: -1px; text-transform: uppercase; }
+
         .container { max-width: 500px; margin: auto; padding: 15px; }
-        
-        /* هيدر فخم */
-        header { text-align: center; padding: 50px 20px; background: linear-gradient(180deg, #300, #000); border-bottom: 3px solid var(--main); position: relative; }
-        .badge { position: absolute; top: 10px; right: 10px; background: var(--gold); color: #000; padding: 3px 10px; border-radius: 10px; font-weight: bold; font-size: 0.7rem; }
+
+        /* الكروت الزجاجية (Glass Cards) */
+        .glass-card {
+            background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05); border-radius: 24px;
+            padding: 20px; margin-bottom: 20px; transition: 0.3s ease;
+        }
+        .glass-card:hover { border-color: rgba(255,0,0,0.3); transform: translateY(-3px); }
 
         /* التايمر المصفح ضد الغش */
-        .timer-sec { background: var(--card); padding: 30px; border-radius: 30px; margin: 20px 0; border: 2px solid var(--main); text-align: center; box-shadow: 0 0 20px rgba(255,0,0,0.2); }
-        #timer-val { font-size: 4.5rem; font-weight: 900; color: var(--main); font-family: monospace; display: block; margin-bottom: 10px; }
-        .btn-timer { background: var(--main); color: #fff; border: none; padding: 18px; border-radius: 50px; width: 100%; font-weight: 900; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
-        .btn-timer:disabled { background: #333; color: #666; cursor: not-allowed; }
-
-        /* كروت التمارين الذكية */
-        .workout-card { background: var(--card); border-radius: 20px; padding: 15px; margin-bottom: 15px; border: 1px solid #222; display: flex; align-items: center; gap: 15px; transition: 0.3s; }
-        .coach-gif { width: 85px; height: 85px; background: #fff; border-radius: 15px; overflow: hidden; border: 2px solid var(--main); }
-        .coach-gif img { width: 100%; height: 100%; object-fit: cover; }
-        .ex-info { flex: 1; }
-        .ex-info b { font-size: 1.1rem; color: #fff; display: block; }
-        .ex-info span { color: var(--main); font-size: 0.8rem; font-weight: bold; }
-
-        /* أزرار الدعم والفيس بوك */
-        .support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .social-btn { padding: 15px; border-radius: 15px; text-decoration: none; color: #fff; font-weight: bold; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; transition: 0.3s; }
-        .social-btn:active { transform: scale(0.95); }
-        .fb { background: var(--fb); }
-        .wa { background: var(--wa); }
-        .yt { background: var(--main); width: 100%; margin-top: 10px; }
-
-        /* رسالة الحماية */
-        #cheat-alert { color: #555; font-size: 0.7rem; margin-top: 8px; display: none; }
+        .timer-display { font-size: 4.5rem; font-weight: 900; color: var(--primary); font-family: 'Monaco', monospace; margin: 10px 0; text-shadow: 0 0 20px rgba(255,0,0,0.4); display: block; }
         
-        .rest-day { text-align: center; padding: 40px 10px; color: #777; }
-        .rest-day i { font-size: 3rem; margin-bottom: 15px; display: block; }
+        /* التمارين بالأنميشن المخصص */
+        .workout-item { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .workout-item:last-child { border: none; }
+        .coach-avatar { 
+            width: 75px; height: 75px; background: #fff; border-radius: 18px; 
+            display: flex; justify-content: center; align-items: center; 
+            border: 2px solid var(--primary); overflow: hidden;
+        }
+        .coach-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+        .ex-info { flex: 1; }
+        .ex-info b { font-size: 1.15rem; color: #fff; display: block; margin-bottom: 2px; }
+        .ex-info span { color: var(--primary); font-size: 0.85rem; font-weight: bold; }
+
+        /* الجدول الأسبوعي */
+        .weekly-table { width: 100%; border-collapse: collapse; margin-top: 15px; border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.03); }
+        .weekly-table td { padding: 15px; text-align: center; font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.02); }
+        .active-day { background: rgba(255,0,0,0.1) !important; color: #fff !important; font-weight: bold; border-right: 4px solid var(--primary); }
+
+        /* أزرار الدعم والفيسبوك */
+        .support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .social-btn { padding: 16px; border-radius: 16px; text-decoration: none; color: #fff; font-weight: bold; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; transition: 0.3s; }
+        .social-btn:active { transform: scale(0.96); }
+        .fb { background: var(--facebook); }
+        .wa { background: var(--whatsapp); }
+        .yt { background: var(--primary); width: 100%; margin-top: 10px; }
+
+        /* الأزرار الأساسية */
+        .btn-premium {
+            background: linear-gradient(180deg, #ff4444, var(--primary));
+            color: white; border: none; padding: 18px; border-radius: 50px;
+            width: 100%; font-weight: bold; font-size: 1.2rem; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255,0,0,0.3); transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .btn-premium:disabled { background: #333; color: #666; cursor: not-allowed; box-shadow: none; transform: scale(0.98); }
+        .btn-premium:not(:disabled):active { transform: translateY(2px); }
+
+        /* رسالة قفل التايمر */
+        #cheat-alert { display: none; color: #555; font-size: 0.8rem; margin-top: 10px; text-align: center; }
+
+        /* الحقوق تحت (الفوتر) */
+        .footer { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.03); }
+        .footer a { color: var(--facebook); text-decoration: none; }
     </style>
 </head>
 <body>
 
+    <div id="splash">
+        <div class="loader-ring"></div>
+        <h2 style="margin-top: 20px; letter-spacing: 5px; text-transform: uppercase;">THE ELITE</h2>
+        <p style="color: #333;">LOADING SYSTEM V16</p>
+    </div>
+
     <header>
-        <div class="badge">PREMIUM V15</div>
-        <h1 style="margin:0;">يوسف أحمد العدوي</h1>
-        <p style="color:#888; margin:5px 0 0;">نظام التدريب المعتمد 🥊</p>
+        <div class="badge">Professional Training</div>
+        <h1>YOUSSEF ELADAWY</h1>
+        <p style="color: var(--gold); font-weight: bold; margin-top: 5px;">PREMIUM SYSTEM 🥊</p>
     </header>
 
     <div class="container">
         
-        <div class="timer-sec">
-            <small style="color:#555; letter-spacing: 2px;">REST TIMER</small>
-            <span id="timer-val">00:45</span>
-            <button id="timer-btn" class="btn-timer" onclick="startEliteTimer()">ابدأ الاستراحة 🔔</button>
-            <p id="cheat-alert"><i class="fas fa-lock"></i> نظام الحماية مفعل.. لا يمكن التلاعب!</p>
+        <div class="glass-card" style="text-align: center;">
+            <small style="color:#777; font-weight:bold; text-transform:uppercase; letter-spacing:1px;">REST TIMER (ANT-CHEAT)</small>
+            <span class="timer-display" id="timer">00:45</span>
+            <button id="timer-btn" class="btn-premium" onclick="startEliteTimer()">
+                <i class="fas fa-play"></i> ابدأ الراحة (45 ثانية) 🔔
+            </button>
+            <p id="cheat-alert"><i class="fas fa-lock"></i> نظام الحماية مفعل.. لا يمكن الغش!</p>
         </div>
 
-        <h3 style="color:var(--gold); border-bottom: 1px solid #222; padding-bottom: 10px;">
-            <i class="fas fa-calendar-check"></i> خطة اليوم: <span id="day-label" style="color:#fff;"></span>
-        </h3>
-        
-        <div id="workout-list">
+        <h3 style="color:var(--gold); margin: 30px 0 15px;"><i class="fas fa-dumbbell"></i> تمرينك اليوم (<span id="day-name">...</span>)</h3>
+        <div class="glass-card" id="workout-list">
             </div>
 
-        <h3 style="margin-top: 30px;"><i class="fas fa-id-card"></i> الدعم والمتابعة</h3>
-        <div class="support-grid">
-            <a href="https://www.facebook.com/share/15Y9v98U7q/" target="_blank" class="social-btn fb">
-                <i class="fab fa-facebook-f"></i> فيسبوك
-            </a>
-            <a href="https://wa.me/201551853099" target="_blank" class="social-btn wa">
-                <i class="fab fa-whatsapp"></i> واتساب
+        <h3 style="margin: 30px 0 15px;"><i class="fas fa-calendar-day"></i> الجدول الأسبوعي (يومك اليوم)</h3>
+        <div class="glass-card" style="padding: 0;">
+            <table class="weekly-table">
+                <tr id="d0"><td>الأحد</td><td>تحمل وملاكمة 🥊</td></tr>
+                <tr id="d1"><td>الاثنين</td><td>حديد 💪</td></tr>
+                <tr id="d2"><td>الثلاثاء</td><td>راحة 🛌</td></tr>
+                <tr id="d3"><td>الأربعاء</td><td>وزن جسم + جري 🏃</td></tr>
+                <tr id="d4"><td>الخميس</td><td>أكتاف + رقبة</td></tr>
+                <tr id="d5"><td>الجمعة</td><td>فول بودي 🔥</td></tr>
+                <tr id="d6"><td>السبت</td><td>راحة 🌴</td></tr>
+            </table>
+        </div>
+
+        <div class="glass-card" style="border-color: rgba(255,255,255,0.1); text-align: center; margin-top: 40px;">
+            <h3><i class="fab fa-whatsapp"></i> خدمة الـ VIP</h3>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin:10px 0 20px;">تواصل معنا فوراً للمتابعة الشخصية وبدء التدريب</p>
+            
+            <div class="support-grid">
+                <a href="https://www.facebook.com/share/15Y9v98U7q/" target="_blank" class="social-btn fb">
+                    <i class="fab fa-facebook-f"></i> فيسبوك
+                </a>
+                <a href="https://wa.me/201551853099" target="_blank" class="social-btn wa">
+                    <i class="fab fa-whatsapp"></i> واتساب
+                </a>
+            </div>
+            <a href="https://www.youtube.com/@YoussefAladawy" target="_blank" class="social-btn yt">
+                <i class="fab fa-youtube"></i> شروحات الفيديو (YouTube)
             </a>
         </div>
-        <a href="https://www.youtube.com/@YoussefAladawy" target="_blank" class="social-btn yt">
-            <i class="fab fa-youtube"></i> شروحات الفيديو (YouTube)
-        </a>
 
-        <div style="text-align:center; margin-top:40px; color:#333; font-size:0.8rem;">
-            جميع الحقوق محفوظة للكوتش يوسف العدوي © 2026
+        <div class="footer">
+            تطوير يوسف أحمد العدوي وعمر عبدالله © 2026<br>
+            <small>Built with precision. Built for professionals.</small>
         </div>
     </div>
 
     <script>
-        // قاعدة بيانات التمارين والجدول
+        // قاعدة بيانات التمارين والجدول الأسبوعي
         const schedule = [
-            { day: "الأحد", title: "ملاكمة وتحمل 🥊", exercises: [
-                { name: "كيس الملاكمة", target: "سرعة", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/vLp5U8Wq66VBC/giphy.gif" },
-                { name: "ضغط سريع", target: "صدر", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKVUn7iM8FMEU24/giphy.gif" }
+            { day: "الأحد", title: "تحمل وملاكمة 🥊", exercises: [
+                { name: "ضرب كيس الملاكمة", target: "سرعة", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/vLp5U8Wq66VBC/giphy.gif" },
+                { name: "ضغط سريع", target: "صدر + كتاف", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKVUn7iM8FMEU24/giphy.gif" }
             ]},
-            { day: "الاثنين", title: "تضخيم (حديد) 💪", exercises: [
+            { day: "الاثنين", title: "حديد 💪", exercises: [
                 { name: "بنش برس", target: "صدر", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKP9p8fU1yVp1O8/giphy.gif" }
             ]},
             { day: "الثلاثاء", title: "راحة 🛌", exercises: [] },
             { day: "الأربعاء", title: "وزن جسم + جري 🏃", exercises: [
-                { name: "عقلة", target: "ظهر", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/l0HlPtbHE2yT2q3q8/giphy.gif" }
+                { name: "عقلة", target: "ظهر + باي", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/l0HlPtbHE2yT2q3q8/giphy.gif" },
+                { name: "متوازي", target: "تراي", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpxfO8S7jX8A/giphy.gif" }
             ]},
             { day: "الخميس", title: "أكتاف ورقبة 🥊", exercises: [
-                { name: "تمارين رقبة", target: "قوة", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKuylS3E8f2z0iI/giphy.gif" }
+                { name: "تمارين رقبة", target: "تحمل", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKuylS3E8f2z0iI/giphy.gif" }
             ]},
             { day: "الجمعة", title: "تمرين شامل 🔥", exercises: [
                 { name: "سكوات", target: "رجلين", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKv6fSgqToTqDqU/giphy.gif" },
-                { name: "بطن", target: "كور", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpxfO8S7jX8A/giphy.gif" }
+                { name: "تمارين بطن", target: "عضلات البطن", img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpxfO8S7jX8A/giphy.gif" }
             ]},
             { day: "السبت", title: "راحة 🌴", exercises: [] }
         ];
 
-        // تشغيل الجدول عند فتح الصفحة
+        // تشغيل الجدول وتحديث الواجهة تلقائياً
         window.onload = () => {
-            const now = new Date();
-            const dayIdx = now.getDay(); // 0-6
+            // إخفاء شاشة التحميل
+            setTimeout(() => { document.getElementById('splash').style.transform = 'translateY(-100%)'; }, 1500);
+
+            const dayIdx = new Date().getDay(); // 0 للأحد
             const today = schedule[dayIdx];
             
-            document.getElementById('day-label').innerText = today.day + " - " + today.title;
-            
+            // تحديث اسم اليوم والعنوان
+            document.getElementById('day-name').innerText = today.day;
+            const tableRow = document.getElementById('d' + dayIdx);
+            if(tableRow) tableRow.classList.add('active-day');
+
+            // عرض التمارين أو رسالة الراحة
             const list = document.getElementById('workout-list');
+            list.innerHTML = ''; // تفريغ القائمة أولاً
+            
             if(today.exercises.length > 0) {
                 today.exercises.forEach(ex => {
                     list.innerHTML += `
-                        <div class="workout-card">
-                            <div class="coach-gif"><img src="${ex.img}"></div>
+                        <div class="workout-item">
+                            <div class="coach-avatar"><img src="${ex.img}"></div>
                             <div class="ex-info">
                                 <b>${ex.name}</b>
                                 <span>${ex.target}</span>
                             </div>
-                            <i class="fas fa-chevron-left" style="color:#333;"></i>
+                            <i class="fas fa-play-circle" style="color:var(--primary); font-size:1.5rem;"></i>
                         </div>`;
                 });
             } else {
-                list.innerHTML = `<div class="rest-day"><i class="fas fa-bed"></i> اليوم راحة سلبية.. جسمك بيتبني وأنت نايم يا بطل!</div>`;
+                list.innerHTML = `<div style="text-align:center; padding:30px; color:#555;"><i class="fas fa-couch" style="font-size:3rem; margin-bottom:15px; display:block;"></i>استراحة محارب! 🛌 الجسم بيتبني وأنت نايم يا بطل.</div>`;
             }
         };
 
-        // نظام التايمر والصوت الذكي
+        // نظام التايمر المضاد للغش
+        let timer;
         function startEliteTimer() {
+            clearInterval(timer); // تفريغ أي عداد سابق
             const btn = document.getElementById('timer-btn');
-            const val = document.getElementById('timer-val');
+            const display = document.getElementById('timer');
             const alertMsg = document.getElementById('cheat-alert');
             
             let s = 45;
-            btn.disabled = true; // قفل الغش
-            alertMsg.style.display = 'block';
+            btn.disabled = true; // تعطيل الزرار تماماً
+            alertMsg.style.display = 'block'; // إظهار رسالة القفل
 
-            const countdown = setInterval(() => {
+            timer = setInterval(() => {
                 s--;
-                val.innerText = `00:${s < 10 ? '0' : ''}${s}`;
+                display.innerText = `00:${s < 10 ? '0' : ''}${s}`;
+                
                 if(s <= 0) {
-                    clearInterval(countdown);
-                    val.innerText = "00:45";
-                    btn.disabled = false;
-                    alertMsg.style.display = 'none';
-                    speakVictory(); // تشغيل الصوت الذكي
+                    clearInterval(timer);
+                    display.innerText = "00:45";
+                    btn.disabled = false; // تفعيل الزرار مرة تانية
+                    alertMsg.style.display = 'none'; // إخفاء رسالة القفل
+                    speakCoach(); // تشغيل الصوت الذكي
                 }
             }, 1000);
         }
 
-        // خاصية النطق (عاش يا بطل)
-        function speakVictory() {
+        // الذكاء الاصطناعي الصوتي
+        function speakCoach() {
             const msg = new SpeechSynthesisUtterance();
             msg.text = "عاش يا بطل.. كمل تمرينك بقوة";
             msg.lang = 'ar-SA';
             msg.rate = 0.9;
             window.speechSynthesis.speak(msg);
-            alert("انتهى الوقت.. عاش يا وحش! 💪");
+            alert("انتهى الوقت.. عاش يا وحش! 💪🔥");
         }
     </script>
 </body>
