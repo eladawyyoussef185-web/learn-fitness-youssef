@@ -2,148 +2,208 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Learn Fitness Youssef | Elite System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Fitness Youssef | Official</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --main: #ff0000; --bg: #000; --glass: rgba(255, 255, 255, 0.05); --gold: #ffd700; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; }
+        :root { --main: #e60000; --bg: #0a0a0a; --card: #151515; --text: #ffffff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-        /* شاشة دخول الأدمن */
-        #admin-login {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 20000; display: flex; justify-content: center; align-items: center;
+        /* إشعار ذكر الله */
+        #dhikr-toast {
+            position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9); border: 1px solid var(--main); border-radius: 30px;
+            padding: 15px 30px; color: #fff; font-weight: bold; font-size: 1.1rem;
+            box-shadow: 0 0 20px rgba(230,0,0,0.4); z-index: 9999; transition: 0.5s ease;
+            display: flex; align-items: center; gap: 10px;
         }
-        .login-card { 
-            background: var(--glass); padding: 40px 30px; border-radius: 30px; 
-            border: 2px solid var(--main); width: 90%; max-width: 400px; text-align: center;
-        }
-        .login-card input { 
-            width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #333; 
-            background: #111; color: #fff; margin-bottom: 15px; text-align: center;
-        }
-        .btn-login { 
-            background: var(--main); color: #fff; border: none; padding: 15px; 
-            border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer;
-        }
+        #dhikr-toast.show { top: 20px; }
 
-        /* محتوى الويب سايت */
-        #main-content { display: none; }
-        header { 
-            padding: 40px 20px; text-align: center; border-bottom: 3px solid var(--main); 
-            background: linear-gradient(180deg, #200, #000); position: relative;
-        }
-        
-        /* أيقونة الشير الجديدة */
-        .share-btn {
-            position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
-            background: var(--glass); border: 1px solid var(--main); color: #fff;
-            width: 45px; height: 45px; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; cursor: pointer; transition: 0.3s;
-        }
-        .share-btn:active { background: var(--main); }
+        /* الهيدر */
+        header { padding: 30px 20px; text-align: center; border-bottom: 2px solid var(--main); background: #000; }
+        header h1 { font-size: 1.8rem; text-transform: uppercase; letter-spacing: 2px; }
 
-        .container { max-width: 500px; margin: auto; padding: 15px; }
-        .glass-card { background: var(--glass); border-radius: 25px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); text-align: center;}
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+
+        /* شاشة التسجيل */
+        #auth-section { display: flex; flex-direction: column; align-items: center; margin-top: 50px; }
+        .auth-box { background: var(--card); padding: 40px 30px; border-radius: 20px; border: 1px solid #333; width: 100%; text-align: center; }
+        .auth-box input { width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 10px; border: none; background: #222; color: #fff; font-size: 1rem; }
+        .auth-box input:focus { outline: 1px solid var(--main); }
+        .btn { background: var(--main); color: #fff; padding: 15px; width: 100%; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn:hover { background: #cc0000; }
+
+        /* شاشة التمارين للمستخدم */
+        #workout-section { display: none; }
+        .workout-card { background: var(--card); border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid #222; display: flex; gap: 15px; align-items: center; }
+        .gif-container { width: 100px; height: 100px; border-radius: 10px; overflow: hidden; border: 2px solid var(--main); flex-shrink: 0; }
+        .gif-container img { width: 100%; height: 100%; object-fit: cover; }
+        .ex-details { flex-grow: 1; }
+        .ex-details h3 { margin-bottom: 5px; color: var(--main); }
+        .ex-details p { font-size: 0.9rem; color: #aaa; line-height: 1.5; }
+
+        /* شاشة الأدمن */
+        #admin-section { display: none; }
+        .admin-box { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid var(--main); }
+        .user-row { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #333; }
+        .user-row:last-child { border-bottom: none; }
         
-        #timer-val { font-size: 4rem; font-weight: 900; color: var(--main); display: block; margin: 10px 0; font-family: monospace; }
-        .btn-action { background: var(--main); color: #fff; border: none; padding: 18px; border-radius: 50px; width: 100%; font-weight: bold; cursor: pointer; }
-        
-        .footer { text-align: center; padding: 30px; color: #444; font-size: 0.8rem; border-top: 1px solid #111; }
+        .footer { text-align: center; margin-top: 40px; padding: 20px; color: #555; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <div id="admin-login">
-        <div class="login-card">
-            <i class="fas fa-user-shield" style="font-size: 3.5rem; color: var(--main); margin-bottom: 15px;"></i>
-            <h2>ADMIN LOGIN</h2>
-            <input type="text" id="user" placeholder="اسم المستخدم (Admin)">
-            <input type="password" id="pass" placeholder="كلمة المرور">
-            <button class="btn-login" onclick="checkAuth()">دخول النظام 🔐</button>
-        </div>
+    <!-- إشعار ذكر الله الذكي -->
+    <div id="dhikr-toast">
+        <i class="fas fa-moon" style="color: gold;"></i> <span id="dhikr-text">سبحان الله وبحمده</span>
     </div>
 
-    <div id="main-content">
-        <header>
-            <div class="share-btn" onclick="shareWebsite()" title="مشاركة الموقع">
-                <i class="fas fa-share-alt"></i>
-            </div>
-            <h1 style="text-transform: uppercase; font-size: 1.4rem;">Learn Fitness Youssef</h1>
-            <p style="color: var(--gold); font-size: 0.8rem;">بواسطة يوسف العدوي & عمر عبدالله</p>
-        </header>
+    <header>
+        <h1>Learn Fitness Youssef</h1>
+        <p style="color: #888; font-size: 0.9rem; margin-top: 5px;">نظام التدريب المعتمد</p>
+    </header>
 
-        <div class="container">
-            <div class="glass-card">
-                <small style="color: #666;">REST TIMER</small>
-                <span id="timer-val">00:45</span>
-                <button id="t-btn" class="btn-action" onclick="startTimer()">ابدأ وقت الراحة 🔔</button>
+    <div class="container">
+        <!-- قسم 1: التسجيل الدخول -->
+        <div id="auth-section">
+            <div class="auth-box">
+                <i class="fas fa-user-circle" style="font-size: 4rem; color: var(--main); margin-bottom: 20px;"></i>
+                <h2 style="margin-bottom: 20px;">تسجيل الدخول للنظام</h2>
+                <input type="text" id="user-name" placeholder="الاسم بالكامل" required>
+                <input type="email" id="user-email" placeholder="البريد الإلكتروني (الجيميل)" required>
+                <button class="btn" onclick="loginSystem()">دخول التمارين 🚀</button>
             </div>
+        </div>
 
-            <div class="glass-card" style="border-color: #25d366;">
-                <h3 style="margin-bottom: 15px;">دعم المشتركين</h3>
-                <button class="btn-action" style="background:#25d366;" onclick="window.open('https://wa.me/201551853099')">
-                    <i class="fab fa-whatsapp"></i> واتساب الإدارة
-                </button>
+        <!-- قسم 2: جدول التمارين (للمشتركين) -->
+        <div id="workout-section">
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--main);">جدول تمرين اليوم</h2>
+            <div id="exercises-container">
+                <!-- التمارين هتظهر هنا برمجياً -->
             </div>
+        </div>
 
-            <div class="footer">
-                تطوير يوسف أحمد العدوي وعمر عبدالله © 2026<br>
-                LEARN-FITNESS-YOUSSEF | V19
+        <!-- قسم 3: لوحة تحكم الأدمن (لك إنت بس) -->
+        <div id="admin-section">
+            <h2 style="text-align: center; margin-bottom: 20px; color: #0f0;"><i class="fas fa-shield-alt"></i> لوحة الإدارة</h2>
+            <div class="admin-box">
+                <h3 style="margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;">قائمة المشتركين المسجلين:</h3>
+                <div id="users-list">
+                    <!-- أسماء المشتركين هتظهر هنا -->
+                </div>
             </div>
+        </div>
+
+        <!-- الحقوق باسمك فقط -->
+        <div class="footer">
+            جميع الحقوق محفوظة - تطوير وإدارة يوسف أحمد العدوي © 2026<br>
+            LEARN-FITNESS-YOUSSEF
         </div>
     </div>
 
     <script>
-        // نظام التحقق
-        function checkAuth() {
-            const u = document.getElementById('user').value;
-            const p = document.getElementById('pass').value;
-            if (u === "Youssef" && p === "12345") {
-                document.getElementById('admin-login').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-                const msg = new SpeechSynthesisUtterance("أهلاً بك يا كوتش يوسف");
-                msg.lang = 'ar-SA';
-                window.speechSynthesis.speak(msg);
+        // --- 1. نظام إشعارات ذكر الله ---
+        const athkar = ["سبحان الله وبحمده", "استغفر الله العظيم", "اللهم صلِ على محمد", "لا إله إلا الله", "الحمد لله دائماً وأبداً"];
+        function showDhikr() {
+            const toast = document.getElementById('dhikr-toast');
+            const randomZikr = athkar[Math.floor(Math.random() * athkar.length)];
+            document.getElementById('dhikr-text').innerText = randomZikr + " .. اذكر الله";
+            
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 4000); // بيختفي بعد 4 ثواني
+        }
+        setInterval(showDhikr, 45000); // بيظهر كل 45 ثانية
+
+        // --- 2. قاعدة بيانات التمارين بالمجسمات (GIFs) ---
+        const dailyWorkouts = [
+            {
+                title: "تمرين الضغط (Push-ups)",
+                desc: "حافظ على استقامة ظهرك، وانزل بجسمك لحد ما صدرك يلمس الأرض تقريباً واطلع تاني. (3 مجاميع x 12 عدة)",
+                gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKVUn7iM8FMEU24/giphy.gif"
+            },
+            {
+                title: "تمرين السكوات (Squats)",
+                desc: "افتح رجلك بعرض كتافك، وانزل كأنك بتقعد على كرسي، وحافظ على ركبك ماتعديش مشط رجلك. (4 مجاميع x 15 عدة)",
+                gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKv6fSgqToTqDqU/giphy.gif"
+            },
+            {
+                title: "تمرين العقلة (Pull-ups)",
+                desc: "امسك البار واطلع لحد ما دقنك تعدي البار، وانزل ببطء عشان تفعل عضلات الظهر. (3 مجاميع x أقصى عدد)",
+                gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/l0HlPtbHE2yT2q3q8/giphy.gif"
+            }
+        ];
+
+        // --- 3. نظام التسجيل ودخول الأدمن ---
+        function loginSystem() {
+            const name = document.getElementById('user-name').value.trim();
+            const email = document.getElementById('user-email').value.trim();
+
+            if(name === "" || email === "") {
+                alert("يا بطل لازم تكتب اسمك وجيميلك الأول!");
+                return;
+            }
+
+            // إخفاء شاشة التسجيل
+            document.getElementById('auth-section').style.display = 'none';
+
+            // 🟢 هل هذا هو الأدمن يوسف؟
+            if(email.toLowerCase() === "youssef@admin.com") {
+                // فتح لوحة الإدارة
+                document.getElementById('admin-section').style.display = 'block';
+                showAdminDashboard();
+                alert("أهلاً بك يا كوتش يوسف في لوحة الإدارة 👑");
             } else {
-                alert("بيانات الدخول خاطئة!");
+                // تسجيل المشترك العادي
+                saveUser(name, email);
+                // فتح جدول التمارين
+                document.getElementById('workout-section').style.display = 'block';
+                loadWorkouts();
+                alert("عاش يا " + name + "! تم تسجيلك بنجاح، يلا نبدأ تمرين 🥊");
             }
         }
 
-        // وظيفة مشاركة الموقع
-        function shareWebsite() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Learn Fitness Youssef',
-                    text: 'انضم لأقوى نظام تدريبي مع الكوتش يوسف العدوي 🥊',
-                    url: window.location.href
-                }).then(() => console.log('تمت المشاركة بنجاح'))
-                  .catch((error) => console.log('خطأ في المشاركة', error));
-            } else {
-                // لو المتصفح مش بيدعم الشير المباشر (زي بعض نسخ الكمبيوتر)
-                alert("انسخ الرابط وابعته لأصحابك: " + window.location.href);
-            }
+        // --- 4. تخزين وعرض البيانات ---
+        function saveUser(name, email) {
+            // حفظ بيانات المشترك في ذاكرة المتصفح
+            let users = JSON.parse(localStorage.getItem('youssef_members') || "[]");
+            users.push({ name: name, email: email, date: new Date().toLocaleDateString('ar-EG') });
+            localStorage.setItem('youssef_members', JSON.stringify(users));
         }
 
-        // التايمر
-        function startTimer() {
-            const btn = document.getElementById('t-btn');
-            const val = document.getElementById('timer-val');
-            let s = 45;
-            btn.disabled = true;
-            const count = setInterval(() => {
-                s--;
-                val.innerText = `00:${s < 10 ? '0' : ''}${s}`;
-                if(s <= 0) {
-                    clearInterval(count);
-                    val.innerText = "00:45";
-                    btn.disabled = false;
-                    const speak = new SpeechSynthesisUtterance("عاش يا وحش.. كمل تمرينك");
-                    speak.lang = 'ar-SA';
-                    window.speechSynthesis.speak(speak);
-                }
-            }, 1000);
+        function loadWorkouts() {
+            const container = document.getElementById('exercises-container');
+            dailyWorkouts.forEach(ex => {
+                container.innerHTML += `
+                    <div class="workout-card">
+                        <div class="gif-container"><img src="${ex.gif}" alt="تمرين"></div>
+                        <div class="ex-details">
+                            <h3>${ex.title}</h3>
+                            <p>${ex.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function showAdminDashboard() {
+            const list = document.getElementById('users-list');
+            let users = JSON.parse(localStorage.getItem('youssef_members') || "[]");
+            
+            if(users.length === 0) {
+                list.innerHTML = "<p style='color:#888; text-align:center;'>لا يوجد مشتركون حتى الآن.</p>";
+                return;
+            }
+
+            list.innerHTML = "";
+            users.forEach(user => {
+                list.innerHTML += `
+                    <div class="user-row">
+                        <div><strong style="color:var(--main);">${user.name}</strong> <br> <small style="color:#aaa;">${user.email}</small></div>
+                        <div style="color:#777; font-size:0.8rem;">تاريخ التسجيل: ${user.date}</div>
+                    </div>
+                `;
+            });
         }
     </script>
 </body>
