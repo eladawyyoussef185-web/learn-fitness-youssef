@@ -20,9 +20,16 @@
         }
         #dhikr-toast.show { top: 20px; }
 
-        /* الهيدر */
-        header { padding: 30px 20px; text-align: center; border-bottom: 2px solid var(--main); background: #000; }
+        /* الهيدر وزر المشاركة */
+        header { padding: 30px 20px; text-align: center; border-bottom: 2px solid var(--main); background: #000; position: relative; }
         header h1 { font-size: 1.8rem; text-transform: uppercase; letter-spacing: 2px; }
+        .share-btn {
+            position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1); border: 1px solid var(--main); color: #fff;
+            width: 45px; height: 45px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; font-size: 1.2rem;
+        }
+        .share-btn:hover { background: var(--main); }
 
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
 
@@ -34,20 +41,20 @@
         .btn { background: var(--main); color: #fff; padding: 15px; width: 100%; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .btn:hover { background: #cc0000; }
 
-        /* شاشة التمارين للمستخدم */
+        /* شاشة التمارين والفيديوهات */
         #workout-section { display: none; }
-        .workout-card { background: var(--card); border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid #222; display: flex; gap: 15px; align-items: center; }
-        .gif-container { width: 100px; height: 100px; border-radius: 10px; overflow: hidden; border: 2px solid var(--main); flex-shrink: 0; }
-        .gif-container img { width: 100%; height: 100%; object-fit: cover; }
-        .ex-details { flex-grow: 1; }
+        .workout-card { background: var(--card); border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid #222; }
+        .video-container { width: 100%; height: 200px; border-radius: 10px; overflow: hidden; border: 2px solid var(--main); margin-bottom: 15px; background: #000; }
+        .video-container iframe { width: 100%; height: 100%; border: none; }
         .ex-details h3 { margin-bottom: 5px; color: var(--main); }
         .ex-details p { font-size: 0.9rem; color: #aaa; line-height: 1.5; }
 
         /* شاشة الأدمن */
         #admin-section { display: none; }
         .admin-box { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid var(--main); }
-        .user-row { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #333; }
+        .user-row { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #333; align-items: center;}
         .user-row:last-child { border-bottom: none; }
+        .btn-clear { background: #555; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 15px;}
         
         .footer { text-align: center; margin-top: 40px; padding: 20px; color: #555; font-size: 0.8rem; }
     </style>
@@ -60,6 +67,10 @@
     </div>
 
     <header>
+        <!-- أيقونة المشاركة -->
+        <button class="share-btn" onclick="shareWebsite()" title="مشاركة الموقع">
+            <i class="fas fa-share-alt"></i>
+        </button>
         <h1>Learn Fitness Youssef</h1>
         <p style="color: #888; font-size: 0.9rem; margin-top: 5px;">نظام التدريب المعتمد</p>
     </header>
@@ -76,15 +87,15 @@
             </div>
         </div>
 
-        <!-- قسم 2: جدول التمارين (للمشتركين) -->
+        <!-- قسم 2: جدول التمارين بالفيديوهات -->
         <div id="workout-section">
             <h2 style="text-align: center; margin-bottom: 20px; color: var(--main);">جدول تمرين اليوم</h2>
             <div id="exercises-container">
-                <!-- التمارين هتظهر هنا برمجياً -->
+                <!-- التمارين هتظهر هنا -->
             </div>
         </div>
 
-        <!-- قسم 3: لوحة تحكم الأدمن (لك إنت بس) -->
+        <!-- قسم 3: لوحة تحكم الأدمن -->
         <div id="admin-section">
             <h2 style="text-align: center; margin-bottom: 20px; color: #0f0;"><i class="fas fa-shield-alt"></i> لوحة الإدارة</h2>
             <div class="admin-box">
@@ -92,6 +103,7 @@
                 <div id="users-list">
                     <!-- أسماء المشتركين هتظهر هنا -->
                 </div>
+                <button class="btn-clear" onclick="clearUsers()">مسح بيانات المشتركين 🗑️</button>
             </div>
         </div>
 
@@ -103,38 +115,50 @@
     </div>
 
     <script>
-        // --- 1. نظام إشعارات ذكر الله ---
+        // مشاركة الموقع
+        function shareWebsite() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Learn Fitness Youssef',
+                    text: 'انضم لنظام التدريب الاحترافي مع الكوتش يوسف العدوي 🥊',
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                alert("انسخ الرابط وابعته لأصحابك: " + window.location.href);
+            }
+        }
+
+        // نظام إشعارات ذكر الله
         const athkar = ["سبحان الله وبحمده", "استغفر الله العظيم", "اللهم صلِ على محمد", "لا إله إلا الله", "الحمد لله دائماً وأبداً"];
         function showDhikr() {
             const toast = document.getElementById('dhikr-toast');
             const randomZikr = athkar[Math.floor(Math.random() * athkar.length)];
             document.getElementById('dhikr-text').innerText = randomZikr + " .. اذكر الله";
-            
             toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 4000); // بيختفي بعد 4 ثواني
+            setTimeout(() => { toast.classList.remove('show'); }, 4000); 
         }
-        setInterval(showDhikr, 45000); // بيظهر كل 45 ثانية
+        setInterval(showDhikr, 45000); // كل 45 ثانية
 
-        // --- 2. قاعدة بيانات التمارين بالمجسمات (GIFs) ---
+        // قاعدة بيانات التمارين (بفيديوهات يوتيوب موثوقة)
         const dailyWorkouts = [
             {
                 title: "تمرين الضغط (Push-ups)",
-                desc: "حافظ على استقامة ظهرك، وانزل بجسمك لحد ما صدرك يلمس الأرض تقريباً واطلع تاني. (3 مجاميع x 12 عدة)",
-                gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKVUn7iM8FMEU24/giphy.gif"
+                desc: "حافظ على استقامة ظهرك، وانزل بجسمك لحد ما صدرك يلمس الأرض تقريباً. (3 مجاميع x 12 عدة)",
+                video: "https://www.youtube.com/embed/IODxDxX7oi4?autoplay=1&mute=1&loop=1&playlist=IODxDxX7oi4"
             },
             {
                 title: "تمرين السكوات (Squats)",
-                desc: "افتح رجلك بعرض كتافك، وانزل كأنك بتقعد على كرسي، وحافظ على ركبك ماتعديش مشط رجلك. (4 مجاميع x 15 عدة)",
-                gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKv6fSgqToTqDqU/giphy.gif"
+                desc: "افتح رجلك بعرض كتافك، وانزل كأنك بتقعد على كرسي. (4 مجاميع x 15 عدة)",
+                video: "https://www.youtube.com/embed/xqvCmoLPNdo?autoplay=1&mute=1&loop=1&playlist=xqvCmoLPNdo"
             },
             {
                 title: "تمرين العقلة (Pull-ups)",
                 desc: "امسك البار واطلع لحد ما دقنك تعدي البار، وانزل ببطء عشان تفعل عضلات الظهر. (3 مجاميع x أقصى عدد)",
-                gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ6MHg5amRieWd4ZHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/l0HlPtbHE2yT2q3q8/giphy.gif"
+                video: "https://www.youtube.com/embed/eGo4IYtlbpU?autoplay=1&mute=1&loop=1&playlist=eGo4IYtlbpU"
             }
         ];
 
-        // --- 3. نظام التسجيل ودخول الأدمن ---
+        // نظام التسجيل ودخول الأدمن
         function loginSystem() {
             const name = document.getElementById('user-name').value.trim();
             const email = document.getElementById('user-email').value.trim();
@@ -144,31 +168,30 @@
                 return;
             }
 
-            // إخفاء شاشة التسجيل
             document.getElementById('auth-section').style.display = 'none';
 
-            // 🟢 هل هذا هو الأدمن يوسف؟
+            // لوحة الأدمن
             if(email.toLowerCase() === "youssef@admin.com") {
-                // فتح لوحة الإدارة
                 document.getElementById('admin-section').style.display = 'block';
                 showAdminDashboard();
                 alert("أهلاً بك يا كوتش يوسف في لوحة الإدارة 👑");
             } else {
-                // تسجيل المشترك العادي
                 saveUser(name, email);
-                // فتح جدول التمارين
                 document.getElementById('workout-section').style.display = 'block';
                 loadWorkouts();
-                alert("عاش يا " + name + "! تم تسجيلك بنجاح، يلا نبدأ تمرين 🥊");
+                alert("عاش يا " + name + "! تم تسجيلك بنجاح 🥊");
             }
         }
 
-        // --- 4. تخزين وعرض البيانات ---
+        // تخزين وعرض البيانات بإصلاح المشكلة
         function saveUser(name, email) {
-            // حفظ بيانات المشترك في ذاكرة المتصفح
             let users = JSON.parse(localStorage.getItem('youssef_members') || "[]");
-            users.push({ name: name, email: email, date: new Date().toLocaleDateString('ar-EG') });
-            localStorage.setItem('youssef_members', JSON.stringify(users));
+            // التأكد إن الإيميل مش متسجل قبل كده عشان ميكررش الأسماء
+            const exists = users.find(u => u.email === email);
+            if(!exists) {
+                users.push({ name: name, email: email, date: new Date().toLocaleDateString('ar-EG') });
+                localStorage.setItem('youssef_members', JSON.stringify(users));
+            }
         }
 
         function loadWorkouts() {
@@ -176,7 +199,9 @@
             dailyWorkouts.forEach(ex => {
                 container.innerHTML += `
                     <div class="workout-card">
-                        <div class="gif-container"><img src="${ex.gif}" alt="تمرين"></div>
+                        <div class="video-container">
+                            <iframe src="${ex.video}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </div>
                         <div class="ex-details">
                             <h3>${ex.title}</h3>
                             <p>${ex.desc}</p>
@@ -191,7 +216,7 @@
             let users = JSON.parse(localStorage.getItem('youssef_members') || "[]");
             
             if(users.length === 0) {
-                list.innerHTML = "<p style='color:#888; text-align:center;'>لا يوجد مشتركون حتى الآن.</p>";
+                list.innerHTML = "<p style='color:#888; text-align:center;'>لا يوجد مشتركون مسجلون على هذا الجهاز.</p>";
                 return;
             }
 
@@ -200,10 +225,17 @@
                 list.innerHTML += `
                     <div class="user-row">
                         <div><strong style="color:var(--main);">${user.name}</strong> <br> <small style="color:#aaa;">${user.email}</small></div>
-                        <div style="color:#777; font-size:0.8rem;">تاريخ التسجيل: ${user.date}</div>
+                        <div style="color:#777; font-size:0.8rem;">${user.date}</div>
                     </div>
                 `;
             });
+        }
+
+        function clearUsers() {
+            if(confirm("متأكد إنك عايز تمسح كل المشتركين من الجهاز ده؟")) {
+                localStorage.removeItem('youssef_members');
+                showAdminDashboard();
+            }
         }
     </script>
 </body>
