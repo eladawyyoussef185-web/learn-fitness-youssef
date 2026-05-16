@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زاد الطالب | أدعية الامتحانات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f2027;
+            --secondary: #203a43;
+            --accent: #fdbb2d;
+            --text-light: #f4f4f9;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), #2c5364);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            width: 100%;
+        }
+
+        header h1 {
+            color: var(--accent);
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        /* زراير الأقسام */
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+            border-color: var(--accent);
+        }
+
+        /* كروت الأدعية */
+        .content-section {
+            width: 90%;
+            max-width: 600px;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .content-section.active {
+            display: flex;
+        }
+
+        .dua-card {
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .dua-card p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* إشعار النسخ */
+        #toast {
+            position: fixed;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: 0.4s;
+            z-index: 1000;
+        }
+        #toast.show { bottom: 30px; }
+
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        footer span {
+            color: var(--accent);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fas fa-book-open"></i> زاد الطالب</h1>
+        <p>أدعية وأذكار تريح القلب وتيسر الصعب بإذن الله</p>
+    </header>
+
+    <div class="tabs-container">
+        <button class="tab-btn active" onclick="openTab('before-study')">قبل المذاكرة</button>
+        <button class="tab-btn" onclick="openTab('before-exam')">دخول الامتحان</button>
+        <button class="tab-btn" onclick="openTab('forgot')">عند النسيان</button>
+        <button class="tab-btn" onclick="openTab('after-exam')">بعد الامتحان</button>
+    </div>
+
+    <!-- قسم قبل المذاكرة -->
+    <div id="before-study" class="content-section active">
+        <div class="dua-card">
+            <p>"اللهم إني أسألك فهم النبيين، وحفظ المرسلين والملائكة المقربين، اللهم اجعل ألسنتنا عامرة بذكرك، وقلوبنا بخشيتك، وأسرارنا بطاعتك، إنك على كل شيء قدير."</p>
+            <button class="copy-btn" onclick="copyDua(this)"><i class="fas fa-copy"></i> نسخ الدعاء</button>
+        </div>
+        <div class="dua-card">
+            <p>"اللهم أخرجنا من ظلمات الوهم، وأكرمنا بنور الفهم، وافتح علينا بمعرفة العلم، وسهل أخلاقنا بالحلم، واجعلنا ممن يستمعون القول فيتبعون أحسنه."</p>
+            <button class="copy-btn" onclick="copyDua(this)"><i class="fas fa-copy"></i> نسخ الدعاء</button>
+        </div>
+    </div>
+
+    <!-- قسم دخول الامتحان -->
+    <div id="before-exam" class="content-section">
+        <div class="dua-card">
+            <p>"رب أدخلني مدخل صدق وأخرجني مخرج صدق، واجعل لي من لدنك سلطاناً نصيراً."</p>
+            <button class="copy-btn" onclick="copyDua(this)"><i class="fas fa-copy"></i> نسخ الدعاء</button>
+        </div>
+        <div class="dua-card">
+            <p>"اللهم لا سهل إلا ما جعلته سهلاً، وأنت تجعل الحزن إذا شئت سهلاً."</p>
+            <button class="copy-btn" onclick="copyDua(this)"><i class="fas fa-copy"></i> نسخ الدعاء</button>
+        </div>
+        <div class="dua-card">
+            <p>"يا حي يا قيوم برحمتك أستغيث، أصلح لي شأني كله ولا تكلني إلى نفسي طرفة عين."</p>
+            <button class="copy-btn" onclick="copyDua(this)"><i class="fas fa-copy"></i> نسخ الدعاء</button>
+        </div>
+    </div>
+
+    <!-- قسم عند النسيان والتعسر -->
+    <div id="forgot" class="content-section">
+        <div class="dua-card">
+            <p>"اللهم يا جامع الناس ليوم لا ريب فيه، اجمع علي ضالتي."</p>
+            <button class="copy-btn" onclick="copyDua(this)"><i class="fas fa-copy"></i> نسخ الدعاء</button>
+        </div>
+        <div class="dua-card">
+            <p>"لا إله إلا أنت سبحانك إني كنت من الظالمين."</p>
+            <button class="copy-btn" onclick="copyDua(this)"><i class="fas fa-copy"></i> نسخ الدعاء</button>
+        </div>
+        <div class="dua-card">
+            <p>"رب اشرح لي صدري، ويسر لي أمري، واحلل عقدة من لساني يفقهوا قولي."</p>
+            <button class="copy-btn" onclick="copyDua(this)"><i class="fas fa-copy"></i> نسخ الدعاء</button>
+        </div>
+    </div>
+
+    <!-- قسم بعد الامتحان -->
+    <div id="after-exam" class="content-section">
+        <div class="dua-card">
+            <p>"الحمد لله الذي هدانا لهذا وما كنا لنهتدي لولا أن هدانا الله."</p>
+            <button class="copy-btn" onclick="copyDua(this)"><i class="fas fa-copy"></i> نسخ الدعاء</button>
+        </div>
+        <div class="dua-card">
+            <p>"اللهم إني استودعتك ما قرأت وما حفظت وما تعلمت، فرده عند حاجتي إليه، إنك على كل شيء قدير، حسبنا الله ونعم الوكيل."</p>
+            <button class="copy-btn" onclick="copyDua(this)"><i class="fas fa-copy"></i> نسخ الدعاء</button>
+        </div>
+    </div>
+
+    <div id="toast">تم نسخ الدعاء بنجاح ✔️</div>
+
+    <footer>
+        تم التصميم والتطوير بواسطة <span>يوسف أحمد العدوي</span> © 2026<br>
+        صدقة جارية لكل طالب علم
+    </footer>
+
+    <script>
+        // دالة التبديل بين الأقسام
+        function openTab(tabId) {
+            // إخفاء كل الأقسام
+            document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+            // إزالة اللون من كل الزراير
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // إظهار القسم المطلوب وتفعيل الزرار
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // دالة نسخ الدعاء
+        function copyDua(button) {
+            // الحصول على النص اللي جوة الكارت
+            const textToCopy = button.parentElement.querySelector('p').innerText;
+            
+            // نسخ النص
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                // إظهار رسالة النجاح
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => { toast.classList.remove('show'); }, 2500);
+            });
+        }
+    </script>
+</body>
+</html>
